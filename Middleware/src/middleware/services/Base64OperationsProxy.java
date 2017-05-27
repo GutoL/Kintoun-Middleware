@@ -22,6 +22,9 @@ public class Base64OperationsProxy extends ClientProxy implements IBase64Operati
         super(host,port);
     }
 
+    public Base64OperationsProxy(){
+        
+    }
     @Override
     public String encode(String s) throws Throwable {
         Invocation invocation=new Invocation();
