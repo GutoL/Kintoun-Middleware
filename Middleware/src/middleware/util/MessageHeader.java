@@ -1,0 +1,71 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package middleware.util;
+
+import java.io.Serializable;
+
+/**
+ *
+ * @author Demis e Lucas
+ */
+public class MessageHeader implements Serializable{
+    private String magic;
+    private int version;
+    private boolean byteOrder;
+    private int messageType;
+    private long messageSize;
+
+    public String getMagic() {
+        return magic;
+    }
+
+    public void setMagic(String magic) {
+        this.magic = magic;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public boolean isByteOrder() {
+        return byteOrder;
+    }
+
+    public void setByteOrder(boolean byteOrder) {
+        this.byteOrder = byteOrder;
+    }
+
+    public int getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(int messageType) {
+        this.messageType = messageType;
+    }
+
+    public long getMessageSize() {
+        return messageSize;
+    }
+
+    public void setMessageSize(long messageSize) {
+        this.messageSize = messageSize;
+    }
+
+    public MessageHeader(String magic, int version, boolean byteOrder, int messageType, long messageSize) {
+        this.magic = magic;
+        this.version = version;
+        this.byteOrder = byteOrder;
+        this.messageType = messageType;
+        this.messageSize = messageSize;
+    }
+    
+    
+    
+}
