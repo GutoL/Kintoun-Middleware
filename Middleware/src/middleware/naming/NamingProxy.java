@@ -104,6 +104,7 @@ public class NamingProxy implements INaming {
         try {
             Marshaller marshaller = new Marshaller();
             crh.send(marshaller.marshall(message));
+            crh.receive();
         } catch (IOException ex) {
             Logger.getLogger(NamingProxy.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {

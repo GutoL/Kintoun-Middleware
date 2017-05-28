@@ -36,9 +36,11 @@ public class NamingInvoker {
         ClientProxy clientProxy=null;
         
         while (true){
+           
             msgToBeUnmarshalled = srh.receive();
             msgUnmarshalled = (Message) marshaller.unmarshall(msgToBeUnmarshalled);
             String serviceName= (String) msgUnmarshalled.getMessageBody().getRequestBody().getParameters().get(0);
+            
             if(msgUnmarshalled.getMessageBody().getRequestBody().getParameters().size()>1){
                 clientProxy= (ClientProxy) msgUnmarshalled.getMessageBody().getRequestBody().getParameters().get(1);
                 System.out.println("middleware.naming.NamingInvoker.invoke() "+clientProxy.getHost());
@@ -48,20 +50,27 @@ public class NamingInvoker {
             switch(msgUnmarshalled.getMessageBody().getRequestHeader().getOperation()){
                 case "lookup":
                     ClientProxy serviceRequested=namingImplementation.lookup(serviceName);
+                    
                     Message responseMessage= new Message(
                         new MessageHeader("MIOP", 0, false, 0, 0),
                         new MessageBody(null, null, new ReplyHeader("",0,0), new ReplyBody(serviceRequested)));
                     msgMarshalled=marshaller.marshall(responseMessage);
                     srh.send(msgMarshalled);
+                    
                     break;
                     
                 case "bind":
+                    
                     namingImplementation.bind(serviceName,clientProxy);
+                    
                     Message responseMessage2= new Message(
                         new MessageHeader("MIOP", 0, false, 0, 2),
                         new MessageBody(null, null, new ReplyHeader("",0,0), new ReplyBody("OK")));
                     msgMarshalled=marshaller.marshall(responseMessage2);
+                    
+                    //System.out.println("teste");
                     srh.send(msgMarshalled);
+                    
                     break;                               
             }  
             

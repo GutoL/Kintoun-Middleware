@@ -60,6 +60,7 @@ public class Base64Invoker {
                         new MessageBody(null, null, new ReplyHeader("",0,0), new ReplyBody(ter.getResult())));
                 msgMarshalled=marshaller.marshall(responseMessage);
                 
+                Thread.sleep(10000);// AQUI
                 srh.send(msgMarshalled);
             
             
