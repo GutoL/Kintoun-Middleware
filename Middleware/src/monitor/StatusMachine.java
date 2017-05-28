@@ -5,11 +5,13 @@
  */
 package monitor;
 
+import java.io.Serializable;
+
 /**
  *
  * @author guto
  */
-public class StatusMachine {
+public class StatusMachine implements Serializable {
     
     public float memoryConsumption;
     public float CPUConsumption;

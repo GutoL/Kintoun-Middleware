@@ -38,7 +38,7 @@ public class MonitorAgent extends Thread{
     
     public void run(){
         
-        crh = new ClientRequestHandler("localhost", 2424); // IP and port of  MonitorController
+        
         
         while (true) {            
         
@@ -59,7 +59,7 @@ public class MonitorAgent extends Thread{
         
     }
     public void sendStatusMachine(StatusMachine sm){
-        
+        crh = new ClientRequestHandler("localhost", 2425); // IP and port of  MonitorController
         Marshaller marshaller = new Marshaller();
         byte [] statusMsg;
         
@@ -67,9 +67,13 @@ public class MonitorAgent extends Thread{
         
             sm.nameMachine = this.nameMachine;
             statusMsg  = marshaller.marshall(sm);
-            crh.send(statusMsg);
+            System.out.println("IP: "+crh.getHost()+" porta: "+crh.getPort());
+            crh.send(statusMsg, true);
             
         } catch (Exception e) {
+          
+            e.printStackTrace();
+            
         }
         
         

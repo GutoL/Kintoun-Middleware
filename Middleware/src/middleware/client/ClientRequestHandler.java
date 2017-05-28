@@ -57,7 +57,10 @@ public class ClientRequestHandler {
       outToServer.writeInt(sentMessageSize);
       outToServer.write(msg,0,sentMessageSize);
       outToServer.flush();
+      
+ 
   }
+  
   
   public byte[] receive() throws IOException{
       byte[] msg = null;
@@ -72,4 +75,30 @@ public class ClientRequestHandler {
       
       return msg;
   }
+  
+  
+   
+  public void send(byte[] msg, boolean closeSocket) throws IOException, InterruptedException{
+      //inicializando sockets e streams
+      clientSocket = new Socket(this.host,this.port);
+      outToServer = new DataOutputStream(clientSocket.getOutputStream());
+      inFromServer = new DataInputStream(clientSocket.getInputStream());
+      
+      //construindo e enviando a mensagem
+      sentMessageSize = msg.length;
+      outToServer.writeInt(sentMessageSize);
+      outToServer.write(msg,0,sentMessageSize);
+      outToServer.flush();
+      
+      if(closeSocket == true){
+        clientSocket.close();
+        outToServer.close();
+        inFromServer.close();
+      }
+      
+  }
+  
+  
+  
+  
 }

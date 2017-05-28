@@ -113,4 +113,34 @@ public class ServerRequestHandler {
 
         
     }
+    
+    
+    public byte[] receive(boolean closeSocket) throws IOException{
+        //verificar se é possível iniciar o servidor no construtor
+        byte[] receivedMessage = null;
+        welcomeSocket = new ServerSocket(portNumber);
+        connectionSocket = welcomeSocket.accept();
+        outToClient = new DataOutputStream(connectionSocket.getOutputStream());
+        inFromClient = new DataInputStream(connectionSocket.getInputStream());
+        
+        receivedMessageSize = inFromClient.readInt();
+        receivedMessage = new byte[receivedMessageSize];
+        inFromClient.read(receivedMessage,0,receivedMessageSize);
+        
+         if(closeSocket == true){
+            
+            connectionSocket.close();
+            welcomeSocket.close();
+            outToClient.close();
+            inFromClient.close();
+            
+        }
+       
+        return receivedMessage;
+        
+    }
+    
+    
+    
+    
 }

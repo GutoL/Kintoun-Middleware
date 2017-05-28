@@ -39,8 +39,8 @@ public class MonitorController {
         
             while (true) {            
             
-                System.out.println("Wait requisitions...");
-                byte [] msg = srh.receive();
+                System.out.println("Wait requisitions... porta: "+srh.getPortNumber());
+                byte [] msg = srh.receive(true);
                 System.out.println("Recieve!!!!"); 
                 statusMachine = (StatusMachine) marshaller.unmarshall(msg);
                  ProcessStatusMachine processStatusMachine = new ProcessStatusMachine(statusMachine, limitResourcesMachine);
