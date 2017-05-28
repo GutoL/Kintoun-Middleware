@@ -18,21 +18,33 @@ public class MonitorAgent extends Thread{
  
     MonitorInterface monitor;
     float time;// time in seconds
+    String nameMachine;
+    ClientRequestHandler crh;
+        
 
     public MonitorAgent() {
     }
 
+    public MonitorAgent(String name){
+        this.nameMachine = name;
+    }
+    
     public MonitorAgent(MonitorInterface monitor, float time) {
         this.monitor = monitor;
         this.time = time;
+        
     }
     
     
     public void run(){
         
+        crh = new ClientRequestHandler("localhost", 2424); // IP and port of  MonitorController
+        
         while (true) {            
         
+            System.out.println("Send status to controller...");
             sendStatusMachine(this.monitor.getStatusMachine());
+            System.out.println("Sended status to controller...");
             
             try {
                 
@@ -48,12 +60,12 @@ public class MonitorAgent extends Thread{
     }
     public void sendStatusMachine(StatusMachine sm){
         
-        ClientRequestHandler crh = new ClientRequestHandler("localhost", 2424); // IP and port of  MonitorController
         Marshaller marshaller = new Marshaller();
         byte [] statusMsg;
         
         try {
         
+            sm.nameMachine = this.nameMachine;
             statusMsg  = marshaller.marshall(sm);
             crh.send(statusMsg);
             

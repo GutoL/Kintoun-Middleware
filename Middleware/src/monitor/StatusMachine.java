@@ -13,10 +13,12 @@ public class StatusMachine {
     
     public float memoryConsumption;
     public float CPUConsumption;
+    public String nameMachine;
 
     public StatusMachine(float memoryConsumption, float CPUConsumption) {
         this.memoryConsumption = memoryConsumption;
         this.CPUConsumption = CPUConsumption;
+        
     }
 
     public StatusMachine() {

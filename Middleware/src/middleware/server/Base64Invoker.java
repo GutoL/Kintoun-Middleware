@@ -37,10 +37,10 @@ public class Base64Invoker {
         Termination ter = new Termination();
         
         // starting monitor agent
-       /* ZabixFake zf = new ZabixFake();
-        MonitorAgent agent = new MonitorAgent(zf, 5);
+        ZabixFake zf = new ZabixFake();
+        MonitorAgent agent = new MonitorAgent(zf, 1); // time in seconds
         agent.start();
-        */
+       
         while (true){
             msgToBeUnmarshalled = srh.receive();
             msgUnmarshalled = (Message) marshaller.unmarshall(msgToBeUnmarshalled);
@@ -60,7 +60,7 @@ public class Base64Invoker {
                         new MessageBody(null, null, new ReplyHeader("",0,0), new ReplyBody(ter.getResult())));
                 msgMarshalled=marshaller.marshall(responseMessage);
                 
-                Thread.sleep(10000);// AQUI
+                Thread.sleep(100000);// AQUI
                 srh.send(msgMarshalled);
             
             
