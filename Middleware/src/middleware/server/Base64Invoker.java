@@ -16,12 +16,15 @@ import middleware.util.MessageHeader;
 import middleware.util.ReplyBody;
 import middleware.util.ReplyHeader;
 import middleware.util.Termination;
+import monitor.MonitorAgent;
+import monitor.ZabixFake;
 
 /**
  *
  * @author gprt
  */
 public class Base64Invoker {
+    
     public void invoke(ClientProxy clientProxy) throws RemoteException, IOException, InterruptedException{
         ServerRequestHandler srh = new ServerRequestHandler(clientProxy.getPort());
         byte[] msgToBeUnmarshalled = null;
@@ -33,6 +36,11 @@ public class Base64Invoker {
         Marshaller marshaller= new Marshaller();
         Termination ter = new Termination();
         
+        // starting monitor agent
+       /* ZabixFake zf = new ZabixFake();
+        MonitorAgent agent = new MonitorAgent(zf, 5);
+        agent.start();
+        */
         while (true){
             msgToBeUnmarshalled = srh.receive();
             msgUnmarshalled = (Message) marshaller.unmarshall(msgToBeUnmarshalled);

@@ -7,6 +7,8 @@ package middleware.client;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import middleware.naming.NamingProxy;
+import middleware.services.Base64OperationsProxy;
 import middleware.util.Invocation;
 import middleware.util.Marshaller;
 import middleware.util.Message;
@@ -22,7 +24,8 @@ import middleware.util.Termination;
  */
 public class Requestor {
     public Termination invoke(Invocation invocation) throws UnknownHostException, IOException, Throwable{
-        ClientRequestHandler crh=new ClientRequestHandler(invocation.getIpAddress(), invocation.getPortNumber());
+        
+       
         Marshaller marshaller = new Marshaller();
         Termination termination = new Termination();
         
@@ -43,19 +46,46 @@ public class Requestor {
        //faz o marshall da mensagem
        msgMarshalled = marshaller.marshall(msgToBeMarshalled);
        
-       //manda a mensagem de request
-       crh.send(msgMarshalled);
+       int limit = 4;
+       int attemptsGetIP , attemptsSendMessage;
        
-       //recebe a mensagem de retorno
-       msgToBeUnmarshalled = crh.receive();
-       
-       //dá o unmarshall da mensagem
-       msgUnmarshalled = (Message)marshaller.unmarshall(msgToBeUnmarshalled);
-       
-       termination.setResult(msgUnmarshalled.getMessageBody().getReplyBody().getOperationResult());
-       
-       return termination;
+        ClientRequestHandler crh=new ClientRequestHandler(invocation.getIpAddress(), invocation.getPortNumber());
         
+        //for(attemptsGetIP=0; attemptsGetIP < limit; attemptsGetIP++){            
+            
+                for(attemptsSendMessage=0; attemptsSendMessage < limit; attemptsSendMessage++) {            
+
+                   try {
+
+                       //manda a mensagem de request
+                       crh.send(msgMarshalled);
+
+                       //recebe a mensagem de retorno
+                       msgToBeUnmarshalled = crh.receive();
+
+                       //dá o unmarshall da mensagem
+                       msgUnmarshalled = (Message)marshaller.unmarshall(msgToBeUnmarshalled);
+
+                       termination.setResult(msgUnmarshalled.getMessageBody().getReplyBody().getOperationResult());
+
+                       return termination;
+
+
+                   } catch (Exception e) {
+
+                       Thread.sleep(5000);
+                       
+                   }
+
+               }
+        //} 
+       
+       
+       
+            
+       
+       
+        return null;
     }
     
 }

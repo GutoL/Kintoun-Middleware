@@ -9,14 +9,16 @@ package monitor;
  *
  * @author guto
  */
-public class ZabixFake {
+public class ZabixFake implements MonitorInterface {
     
     public float memoryConsumption;
     public float CPUConsumption;
+    public float rate;
 
     public ZabixFake() {
         this.CPUConsumption = 0;
         this.memoryConsumption = 0;
+        this.rate = (float)0.1;
     }
 
     public ZabixFake(float memoryConsumption, float CPUConsumption) {
@@ -40,6 +42,18 @@ public class ZabixFake {
         else{
             return (float) 100;
         }
+    }
+
+    @Override
+    public StatusMachine getStatusMachine() {
+        if(CPUConsumption < 100 && memoryConsumption < 100){
+            
+            memoryConsumption = memoryConsumption + (rate*memoryConsumption);
+            CPUConsumption = CPUConsumption + (rate*CPUConsumption);
+        
+        }
+        StatusMachine sm = new StatusMachine(memoryConsumption, CPUConsumption);
+        return sm;
     }
     
     

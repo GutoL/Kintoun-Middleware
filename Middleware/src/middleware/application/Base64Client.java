@@ -17,11 +17,15 @@ public class Base64Client {
     
     public static void main(String[]args) throws Throwable{
         NamingProxy namingProxy = new NamingProxy("localhost",2017);
+        
         System.out.println("middleware.application.Base64Client.main() "+namingProxy.list());
+        
         Base64OperationsProxy b64proxy = (Base64OperationsProxy)namingProxy.lookup("Base64");
         System.out.println("middleware.application.Base64Client.main() "+b64proxy);
         System.out.println("middleware.application.Base64Client.main() "+b64proxy.getHost()+" "+b64proxy.getPort());
+        
         String result=b64proxy.encode("lala");
+        
         System.out.println(result);
         
     }

@@ -89,7 +89,9 @@ public class NamingProxy implements INaming {
         ArrayList<Object> parameters = new ArrayList<Object>();
         parameters.add(serviceName);
         parameters.add(clientProxy);
+        
         System.out.println("middleware.naming.NamingProxy.bind() "+parameters.get(0));
+        
         Message message=new Message();
         message.setMessageBody(new MessageBody(
                 new RequestHeader("", 0, true, 0, "bind"),
