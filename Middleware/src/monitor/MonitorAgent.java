@@ -29,9 +29,10 @@ public class MonitorAgent extends Thread{
         this.nameMachine = name;
     }
     
-    public MonitorAgent(MonitorInterface monitor, float time) {
+    public MonitorAgent(MonitorInterface monitor, float time, String name) {
         this.monitor = monitor;
         this.time = time;
+        this.nameMachine = name;
         
     }
     
@@ -42,9 +43,9 @@ public class MonitorAgent extends Thread{
         
         while (true) {            
         
-            System.out.println("Send status to controller...");
+            //System.out.println("Send status to controller...");
             sendStatusMachine(this.monitor.getStatusMachine());
-            System.out.println("Sended status to controller...");
+            //System.out.println("Sended status to controller...");
             
             try {
                 
@@ -66,9 +67,11 @@ public class MonitorAgent extends Thread{
         try {
         
             sm.nameMachine = this.nameMachine;
+            System.out.println(sm.CPUConsumption);
             statusMsg  = marshaller.marshall(sm);
-            System.out.println("IP: "+crh.getHost()+" porta: "+crh.getPort());
+            //System.out.println("IP: "+crh.getHost()+" porta: "+crh.getPort());
             crh.send(statusMsg, true);
+            System.out.println("Sended");
             
         } catch (Exception e) {
           

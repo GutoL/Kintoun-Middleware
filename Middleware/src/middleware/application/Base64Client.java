@@ -6,7 +6,7 @@
 package middleware.application;
 
 import middleware.naming.NamingProxy;
-import middleware.naming.NamingServer;
+//import middleware.naming.NamingServer;
 import middleware.services.Base64OperationsProxy;
 
 /**

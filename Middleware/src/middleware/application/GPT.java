@@ -15,7 +15,7 @@ public class GPT {
         
     public static void main(String args[]){
         
-        MonitorController controller = new MonitorController(2424, (float) 0.8);
+        MonitorController controller = new MonitorController(2424, (float) 80); // 80%
         System.out.println("GPT is ready!");
         controller.manage();
         

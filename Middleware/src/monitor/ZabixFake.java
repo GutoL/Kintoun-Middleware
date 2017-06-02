@@ -14,6 +14,7 @@ public class ZabixFake implements MonitorInterface {
     public float memoryConsumption;
     public float CPUConsumption;
     public float rate;
+    public StatusMachine sm;
 
     public ZabixFake() {
         this.CPUConsumption = 0;
@@ -28,7 +29,7 @@ public class ZabixFake implements MonitorInterface {
 
     public float getCPUConsumption() {
        if(this.CPUConsumption <100){
-            return (float) (CPUConsumption+(CPUConsumption*0.1));
+            return (float) (this.CPUConsumption+(this.CPUConsumption*0.1));
        }
        else{
            return (float) 100;
@@ -37,7 +38,7 @@ public class ZabixFake implements MonitorInterface {
 
     public float getMemoryConsumption() {
         if(this.memoryConsumption < 100){
-            return (float) (memoryConsumption+(memoryConsumption*0.1));
+            return (float) (this.memoryConsumption+(this.memoryConsumption*0.1));
         }
         else{
             return (float) 100;
@@ -48,12 +49,13 @@ public class ZabixFake implements MonitorInterface {
     public StatusMachine getStatusMachine() {
         if(CPUConsumption < 100 && memoryConsumption < 100){
             
-            memoryConsumption = memoryConsumption + (rate*memoryConsumption);
-            CPUConsumption = CPUConsumption + (rate*CPUConsumption);
+            this.memoryConsumption = this.memoryConsumption + (rate*100);
+            this.CPUConsumption = this.CPUConsumption + (rate*100);
+            System.out.println("CPU: "+this.CPUConsumption+" memory: "+this.memoryConsumption);
         
         }
-        StatusMachine sm = new StatusMachine(memoryConsumption, CPUConsumption);
-        return sm;
+        this.sm = new StatusMachine(this.memoryConsumption, this.CPUConsumption);
+        return this.sm;
     }
     
     
