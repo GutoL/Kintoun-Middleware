@@ -45,6 +45,9 @@ public class MonitorController {
                 statusMachine = (StatusMachine) marshaller.unmarshall(msg);
                  ProcessStatusMachine processStatusMachine = new ProcessStatusMachine(statusMachine, limitResourcesMachine);
                  processStatusMachine.start();
+                 // tem que ter o ip da máquina que vai pausar, o ip da máquina que vai iniciar para fazer o rebind no 
+                 // servidor de nomes, tem que ter o nome das duas máquinas também, para o devstack pausar uma e despausar
+                 // a outra (Show details of instance: openstack server show NAME)
                  
             }   
             
