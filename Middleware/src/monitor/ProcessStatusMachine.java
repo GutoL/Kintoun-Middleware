@@ -37,8 +37,8 @@ public class ProcessStatusMachine extends Thread{
             
             // aqui dá o comando para o devstack para a máquina
             System.out.println("Stop machine: "+statusMachine.nameMachine);
-            execScriptSH("Shell/pause.sh", statusMachine.nameMachine);// pause machine
-            //execScriptWithReturn("Shell/pause.sh", statusMachine.nameMachine);
+            //execScriptSH("src/monitor/Shell/pause.sh", statusMachine.nameMachine);// pause machine
+            execScriptWithReturn("src/monitor/Shell/pause.sh", statusMachine.nameMachine);// pause machine with return
         }
         
     }
@@ -73,6 +73,7 @@ public class ProcessStatusMachine extends Thread{
             
             
         } catch (Exception e) {
+            System.out.println("Error");
              
         }
         
@@ -98,21 +99,21 @@ public class ProcessStatusMachine extends Thread{
                  InputStreamReader(proc.getErrorStream()));
 
             // read the output from the command
-            System.out.println("Here is the standard output of the command:\n");
+            //System.out.println("Here is the standard output of the command:\n");
             String s = null;
             while ((s = stdInput.readLine()) != null) {
                 System.out.println(s);
             }
 
             // read any errors from the attempted command
-            System.out.println("Here is the standard error of the command (if any):\n");
+            //System.out.println("Here is the standard error of the command (if any):\n");
             while ((s = stdError.readLine()) != null) {
                 System.out.println(s);
             }
 
 
             } catch (Exception e) {
-                //System.out.println("Error: "+"./"+script_name+" "+machine);
+                System.out.println("Error: "+"./"+script_name+" "+machine);
             }
     }
 

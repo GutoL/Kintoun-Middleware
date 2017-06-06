@@ -19,7 +19,7 @@ public class ZabixFake implements MonitorInterface {
     public ZabixFake() {
         this.CPUConsumption = 0;
         this.memoryConsumption = 0;
-        this.rate = (float)0.1;
+        this.rate = (float)0.2;
     }
 
     public ZabixFake(float memoryConsumption, float CPUConsumption) {

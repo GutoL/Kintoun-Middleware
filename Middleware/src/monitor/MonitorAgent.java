@@ -72,7 +72,7 @@ public class MonitorAgent extends Thread{
             //System.out.println("IP: "+crh.getHost()+" porta: "+crh.getPort());
             crh.send(statusMsg, true);
             System.out.println("Sended");
-            Thread.sleep(5000);// send every 5 seconds
+            //Thread.sleep(5000);// send every 5 seconds
             
         } catch (Exception e) {
           
