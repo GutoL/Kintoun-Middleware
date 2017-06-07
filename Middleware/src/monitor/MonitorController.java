@@ -64,7 +64,7 @@ public class MonitorController {
             machines.remove((machines.size()-1)); // ignore footer
             //machines.remove((machines.size()-1));
             
-            int index;
+            int index, index2;
             String [] data;
             MachineInformation machineInformation = new MachineInformation();
             for (int i = 0; i < machines.size(); i++) {
@@ -79,9 +79,19 @@ public class MonitorController {
                 
                 
                 index = data[6].indexOf("private=");
-                System.out.println(data[6].substring(index+8,data[6].length()));// IP
+                index2 = data[6].indexOf(",");
                 
-                machineInformation.setIP(data[6].substring(index+8, data[6].length()));
+                if(index2 == -1){
+                    machineInformation.setIP(data[6].substring(index+8, data[6].length()));
+                    System.out.println(data[6].substring(index+8, data[6].length()));
+                }
+                else{
+                    //System.out.println("index: "+index+" index2: "+index2);
+                    System.out.println(data[6].substring(index+8,index2));// IP
+                    machineInformation.setIP(data[6].substring(index+8,index2));
+                }
+                
+                
                 machineInformation.setName(data[2].substring(1, data[2].length()));
                 machineInformation.setPort(1010); // essa seria a porta padrão que os servidores ficariam escutando =/
                 this.machines.add(machineInformation);
