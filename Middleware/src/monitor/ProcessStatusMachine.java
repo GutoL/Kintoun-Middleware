@@ -7,6 +7,7 @@ package monitor;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,13 +17,16 @@ public class ProcessStatusMachine extends Thread{
     
     StatusMachine statusMachine;
     LimitResourcesMachine limitResourcesMachine;
+    ArrayList<MachineInformation> machines = new ArrayList<>();
 
     public ProcessStatusMachine() {
     }
 
-    public ProcessStatusMachine(StatusMachine statusMachine,LimitResourcesMachine limitResourcesMachine) {
+    public ProcessStatusMachine(StatusMachine statusMachine,LimitResourcesMachine limitResourcesMachine, 
+            ArrayList<MachineInformation> machines) {
         this.statusMachine = statusMachine;
         this.limitResourcesMachine = limitResourcesMachine;
+        this.machines = machines;
         
     }
     

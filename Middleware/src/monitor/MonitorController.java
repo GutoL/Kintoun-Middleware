@@ -8,8 +8,6 @@ package monitor;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import middleware.server.ServerRequestHandler;
 import middleware.util.Marshaller;
 
@@ -127,7 +125,7 @@ public class MonitorController {
                 byte [] msg = srh.receive(true);
                 System.out.println("Recieve!!!!"); 
                 statusMachine = (StatusMachine) marshaller.unmarshall(msg);
-                 ProcessStatusMachine processStatusMachine = new ProcessStatusMachine(statusMachine, limitResourcesMachine);
+                 ProcessStatusMachine processStatusMachine = new ProcessStatusMachine(statusMachine, limitResourcesMachine,machines);
                  processStatusMachine.start();
                  // tem que ter o ip da máquina que vai pausar, o ip da máquina que vai iniciar para fazer o rebind no 
                  // servidor de nomes, tem que ter o nome das duas máquinas também, para o devstack pausar uma e despausar
