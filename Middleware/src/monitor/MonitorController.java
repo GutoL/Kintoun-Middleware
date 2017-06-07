@@ -81,9 +81,9 @@ public class MonitorController {
                 index = data[6].indexOf("private=");
                 System.out.println(data[6].substring(index+8,data[6].length()));// IP
                 
-                machineInformation.setIP(data[6].substring(index+8, index+16));
+                machineInformation.setIP(data[6].substring(index+8, data[6].length()));
                 machineInformation.setName(data[2]);
-                machineInformation.setPort(1010);
+                machineInformation.setPort(1010); // essa seria a porta padrão que os servidores ficariam escutando =/
                 this.machines.add(machineInformation);
                 
                 
