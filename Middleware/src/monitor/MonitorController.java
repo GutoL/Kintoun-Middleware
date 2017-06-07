@@ -79,7 +79,7 @@ public class MonitorController {
                 
                 
                 index = data[6].indexOf("private=");
-                System.out.println(data[6].substring(index+8, index+16));// IP
+                System.out.println(data[6].substring(index+8,data[6].length()));// IP
                 
                 machineInformation.setIP(data[6].substring(index+8, index+16));
                 machineInformation.setName(data[2]);
