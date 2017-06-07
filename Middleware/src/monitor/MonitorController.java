@@ -58,6 +58,7 @@ public class MonitorController {
                 //System.out.println(s);
                 if(lines >=3){ // ignore header
                     machines.add(s);
+                    System.out.println(s);
                 }
                 lines++;
             }
@@ -66,32 +67,33 @@ public class MonitorController {
             
             int index, index2;
             String [] data;
-            MachineInformation machineInformation = new MachineInformation();
+            MachineInformation machineInformation;
             for (int i = 0; i < machines.size(); i++) {
                 //System.out.println(machines.get(i));
                 //index = machines.get(i).indexOf("private=");
                 //System.out.println(machines.get(i).substring(index+8, index+16));
-                
+                machineInformation = new MachineInformation();
                 data = machines.get(i).split("\\|");
                 
-                System.out.println(data[2].substring(1, data[2].length()));// name
+                //System.out.println(data[2].substring(1, data[2].length()));// name
                 //System.out.println(data[6]);// IP
                 
                 
-                index = data[6].indexOf("private=");
+                //index = data[6].indexOf("private=");
+                index = data[6].indexOf("=");
                 index2 = data[6].indexOf(",");
                 
                 if(index2 == -1){
                     machineInformation.setIP(data[6].substring(index+8, data[6].length()));
-                    System.out.println(data[6].substring(index+8, data[6].length()));
+                    //System.out.println(data[6].substring(index+8, data[6].length()));
                 }
                 else{
                     //System.out.println("index: "+index+" index2: "+index2);
-                    System.out.println(data[6].substring(index+8,index2));// IP
+                    //System.out.println(data[6].substring(index+8,index2));// IP
                     machineInformation.setIP(data[6].substring(index+8,index2));
                 }
                 
-                
+                System.out.println("se liga: "+machineInformation.IP);
                 machineInformation.setName(data[2].substring(1, data[2].length()));
                 machineInformation.setPort(1010); // essa seria a porta padrão que os servidores ficariam escutando =/
                 this.machines.add(machineInformation);
@@ -127,16 +129,20 @@ public class MonitorController {
         
         try {
         
+            this.getListMachines();
             while (true) {            
                 
-                this.getListMachines();
+                
                 
                 System.out.println("Wait requisitions..... porta: "+srh.getPortNumber());
                 byte [] msg = srh.receive(true);
-                System.out.println("Recieve!!!!"); 
+                System.out.println("Recieve!!!!");
+                String ipServer = srh.getConnectionSocket().getInetAddress().getHostAddress();
+                //System.out.println("ip server: "+ipServer);
+                
                 statusMachine = (StatusMachine) marshaller.unmarshall(msg);
-                 ProcessStatusMachine processStatusMachine = new ProcessStatusMachine(statusMachine, limitResourcesMachine,machines);
-                 processStatusMachine.start();
+                ProcessStatusMachine processStatusMachine = new ProcessStatusMachine(statusMachine, limitResourcesMachine,machines,ipServer);
+                processStatusMachine.start();
                  // tem que ter o ip da máquina que vai pausar, o ip da máquina que vai iniciar para fazer o rebind no 
                  // servidor de nomes, tem que ter o nome das duas máquinas também, para o devstack pausar uma e despausar
                  // a outra (Show details of instance: openstack server show NAME)

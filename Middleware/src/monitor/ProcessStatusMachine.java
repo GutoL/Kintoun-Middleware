@@ -8,6 +8,8 @@ package monitor;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import middleware.client.ClientProxy;
+import middleware.naming.NamingProxy;
 
 /**
  *
@@ -18,15 +20,17 @@ public class ProcessStatusMachine extends Thread{
     StatusMachine statusMachine;
     LimitResourcesMachine limitResourcesMachine;
     ArrayList<MachineInformation> machines = new ArrayList<>();
+    String ipServer;
 
     public ProcessStatusMachine() {
     }
 
     public ProcessStatusMachine(StatusMachine statusMachine,LimitResourcesMachine limitResourcesMachine, 
-            ArrayList<MachineInformation> machines) {
+            ArrayList<MachineInformation> machines, String ip) {
         this.statusMachine = statusMachine;
         this.limitResourcesMachine = limitResourcesMachine;
         this.machines = machines;
+        this.ipServer = ip;
         
     }
     
@@ -36,13 +40,36 @@ public class ProcessStatusMachine extends Thread{
         if((statusMachine.CPUConsumption >= this.limitResourcesMachine.getLimitCPU()) ||
                 (statusMachine.memoryConsumption>=this.limitResourcesMachine.getLimitMemory())){
             
-           System.out.println("Status CPU: "+this.statusMachine.CPUConsumption);
-            System.out.println("Status Memory: "+this.statusMachine.CPUConsumption);
+           //System.out.println("Status CPU: "+this.statusMachine.CPUConsumption);
+           //System.out.println("Status Memory: "+this.statusMachine.CPUConsumption);
             
-            // aqui dá o comando para o devstack para a máquina, iniciar a standby e fazer o rebind no servidor de nomes
-            System.out.println("Stop machine: "+statusMachine.nameMachine);
-            //execScriptSH("src/monitor/Shell/pause.sh", statusMachine.nameMachine);// pause machine
-            execScriptWithReturn("src/monitor/Shell/pause.sh", statusMachine.nameMachine);// pause machine with return
+           // aqui dá o comando para o devstack para a máquina, iniciar a standby e fazer o rebind no servidor de nomes
+           System.out.println("Stop machine: "+statusMachine.nameMachine);
+           //execScriptSH("src/monitor/Shell/pause.sh", statusMachine.nameMachine);// pause machine
+           
+           
+           NamingProxy namingProxy = new NamingProxy("localhost",2017);// servidor de nomes
+           ClientProxy cp = new ClientProxy();
+           
+            System.out.println("numero maquinas: "+machines.size());
+           
+            for (int i = 0; i < machines.size(); i++) {
+                
+                 //System.out.println("List: "+machines.get(i).IP);
+                 //System.out.println("IP server: "+this.ipServer);
+                
+                if(machines.get(i).IP.equals(this.ipServer)){ // procurando o IP da máquina que tem que pausar
+                    
+                    execScriptWithReturn("src/monitor/Shell/pause.sh", machines.get(i).name);// pause machine with return
+                    // teoricamente deveria se fazer o rebind aqui no servidor de nomes
+                }
+                
+                
+            }
+           
+        
+        
+        
         }
         
     }
@@ -55,7 +82,7 @@ public class ProcessStatusMachine extends Thread{
             Runtime run = Runtime.getRuntime();
             //run.exec("./CommunicationDevstack/PauseInstance.sh "+machine);
             run.exec("./"+script_name+" "+machine);
-            Thread.sleep(300);
+            
             /*ProcessBuilder pb = new ProcessBuilder("teste.sh");
             Process p = pb.start();
             */

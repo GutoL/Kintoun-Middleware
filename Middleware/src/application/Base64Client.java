@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package middleware.application;
+package application;
 
 import middleware.naming.NamingProxy;
 //import middleware.naming.NamingServer;
@@ -16,7 +16,7 @@ import middleware.services.Base64OperationsProxy;
 public class Base64Client {
     
     public static void main(String[]args) throws Throwable{
-        NamingProxy namingProxy = new NamingProxy("localhost",2017);
+        NamingProxy namingProxy = new NamingProxy("localhost",2017);// servidor de nomes
         
         System.out.println("middleware.application.Base64Client.main() "+namingProxy.list());
         
