@@ -74,7 +74,7 @@ public class MonitorController {
                 
                 data = machines.get(i).split("\\|");
                 
-                System.out.println(data[2]);// name
+                System.out.println(data[2].substring(1, data[2].length()));// name
                 //System.out.println(data[6]);// IP
                 
                 
@@ -82,7 +82,7 @@ public class MonitorController {
                 System.out.println(data[6].substring(index+8,data[6].length()));// IP
                 
                 machineInformation.setIP(data[6].substring(index+8, data[6].length()));
-                machineInformation.setName(data[2]);
+                machineInformation.setName(data[2].substring(1, data[2].length()));
                 machineInformation.setPort(1010); // essa seria a porta padrão que os servidores ficariam escutando =/
                 this.machines.add(machineInformation);
                 
