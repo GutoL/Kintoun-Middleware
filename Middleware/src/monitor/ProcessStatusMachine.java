@@ -35,7 +35,7 @@ public class ProcessStatusMachine extends Thread{
            System.out.println("Status CPU: "+this.statusMachine.CPUConsumption);
             System.out.println("Status Memory: "+this.statusMachine.CPUConsumption);
             
-            // aqui dá o comando para o devstack para a máquina
+            // aqui dá o comando para o devstack para a máquina, iniciar a standby e fazer o rebind no servidor de nomes
             System.out.println("Stop machine: "+statusMachine.nameMachine);
             //execScriptSH("src/monitor/Shell/pause.sh", statusMachine.nameMachine);// pause machine
             execScriptWithReturn("src/monitor/Shell/pause.sh", statusMachine.nameMachine);// pause machine with return

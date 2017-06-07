@@ -5,6 +5,11 @@
  */
 package monitor;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import middleware.server.ServerRequestHandler;
 import middleware.util.Marshaller;
 
@@ -16,6 +21,7 @@ public class MonitorController {
     
         private int port;
         LimitResourcesMachine limitResourcesMachine;
+        ArrayList<MachineInformation> machines = new ArrayList<>(); // como preencher essa lista?
         
 
         public MonitorController() {
@@ -26,7 +32,83 @@ public class MonitorController {
         this.limitResourcesMachine = new LimitResourcesMachine(limit, limit);
     }
         
-       
+    /**
+     * This method will discover machines running in Openstack
+     */
+    public void getListMachines(){
+        
+        ArrayList<String> machines = new ArrayList<>();
+        
+        try {
+            
+            Runtime rt = Runtime.getRuntime();
+            //String[] commands = {"system.exe","-get t"};
+            String commands = "./src/monitor/Shell/listInstances.sh";
+            //commands = "ifconfig";
+            Process proc = rt.exec(commands);
+
+            BufferedReader stdInput = new BufferedReader(new 
+                 InputStreamReader(proc.getInputStream()));
+
+            BufferedReader stdError = new BufferedReader(new 
+                 InputStreamReader(proc.getErrorStream()));
+
+            // read the output from the command
+            String s = null;
+            int lines = 0;
+            while ((s = stdInput.readLine()) != null) {
+                //System.out.println(s);
+                if(lines >=3){ // ignore header
+                    machines.add(s);
+                }
+                lines++;
+            }
+            machines.remove((machines.size()-1)); // ignore footer
+            //machines.remove((machines.size()-1));
+            
+            int index;
+            String [] data;
+            MachineInformation machineInformation = new MachineInformation();
+            for (int i = 0; i < machines.size(); i++) {
+                //System.out.println(machines.get(i));
+                //index = machines.get(i).indexOf("private=");
+                //System.out.println(machines.get(i).substring(index+8, index+16));
+                
+                data = machines.get(i).split("\\|");
+                
+                System.out.println(data[2]);// name
+                //System.out.println(data[6]);// IP
+                
+                
+                index = data[6].indexOf("private=");
+                System.out.println(data[6].substring(index+8, index+16));// IP
+                
+                machineInformation.setIP(data[6].substring(index+8, index+16));
+                machineInformation.setName(data[2]);
+                machineInformation.setPort(1010);
+                this.machines.add(machineInformation);
+                
+                
+            }
+            
+            
+            
+            // read any errors from the attempted command
+            while ((s = stdError.readLine()) != null) {
+                
+                System.out.println(s);
+                
+            }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+    
+    
+    
     
     public void manage(){
         
@@ -38,8 +120,10 @@ public class MonitorController {
         try {
         
             while (true) {            
-            
-                System.out.println("Wait requisitions... porta: "+srh.getPortNumber());
+                
+                this.getListMachines();
+                
+                System.out.println("Wait requisitions..... porta: "+srh.getPortNumber());
                 byte [] msg = srh.receive(true);
                 System.out.println("Recieve!!!!"); 
                 statusMachine = (StatusMachine) marshaller.unmarshall(msg);
