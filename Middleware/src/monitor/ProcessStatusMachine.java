@@ -51,7 +51,7 @@ public class ProcessStatusMachine extends Thread{
            NamingProxy namingProxy = new NamingProxy("localhost",2017);// servidor de nomes
            ClientProxy cp = new ClientProxy();
            
-            System.out.println("numero maquinas: "+machines.size());
+            //System.out.println("numero maquinas: "+machines.size());
            
             for (int i = 0; i < machines.size(); i++) {
                 

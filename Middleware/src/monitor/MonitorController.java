@@ -56,18 +56,19 @@ public class MonitorController {
             int lines = 0;
             while ((s = stdInput.readLine()) != null) {
                 //System.out.println(s);
-                if(lines >=3){ // ignore header
-                    machines.add(s);
-                    System.out.println(s);
+                if((lines >=4)&&(s.contains("="))){ // ignore header
+                   machines.add(s);
+                   System.out.println("he"+s);
                 }
                 lines++;
             }
-            machines.remove((machines.size()-1)); // ignore footer
+            //machines.remove((machines.size()-1)); // ignore footer
             //machines.remove((machines.size()-1));
             
-            int index, index2;
+            int index;
             String [] data;
             MachineInformation machineInformation;
+            //System.out.println("numero de maquinas: "+machines.size());
             for (int i = 0; i < machines.size(); i++) {
                 //System.out.println(machines.get(i));
                 //index = machines.get(i).indexOf("private=");
@@ -78,23 +79,16 @@ public class MonitorController {
                 //System.out.println(data[2].substring(1, data[2].length()));// name
                 //System.out.println(data[6]);// IP
                 
-                
+                //System.out.println(data[4]);
                 //index = data[6].indexOf("private=");
-                index = data[6].indexOf("=");
-                index2 = data[6].indexOf(",");
+                index = data[4].indexOf("=");
+                //System.out.println("IP: "+data[4].substring(index+1,(data[4].length()-2)));
+                //System.out.println("Name: "+data[2]);
                 
-                if(index2 == -1){
-                    machineInformation.setIP(data[6].substring(index+8, data[6].length()));
-                    //System.out.println(data[6].substring(index+8, data[6].length()));
-                }
-                else{
-                    //System.out.println("index: "+index+" index2: "+index2);
-                    //System.out.println(data[6].substring(index+8,index2));// IP
-                    machineInformation.setIP(data[6].substring(index+8,index2));
-                }
-                
-                System.out.println("se liga: "+machineInformation.IP);
-                machineInformation.setName(data[2].substring(1, data[2].length()));
+                machineInformation.setIP(data[4].substring(index+1,(data[4].length()-2)));
+                machineInformation.setName(data[2]);
+                //System.out.println("se liga: "+machineInformation.IP);
+                //machineInformation.setName(data[2].substring(1, data[2].length()));
                 machineInformation.setPort(1010); // essa seria a porta padrão que os servidores ficariam escutando =/
                 this.machines.add(machineInformation);
                 
