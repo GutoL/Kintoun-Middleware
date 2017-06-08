@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package middleware.application;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -18,11 +17,17 @@ import middleware.services.Base64OperationsProxy;
 public class Base64Server {
     
     public static void main(String[]args) throws IOException, RemoteException, InterruptedException{
+        String namingServerIP=args[0];
+        if (namingServerIP==null){
+            namingServerIP="localhost";
+        }
         Base64Invoker invoker = new Base64Invoker();
         System.out.println("Server running");
-        Base64OperationsProxy base64 = new Base64OperationsProxy("localhost",2018);
+        Base64OperationsProxy base64 = new Base64OperationsProxy("localhost",2019);
         System.out.println("Server running");
-        NamingProxy namingProxy = new NamingProxy("localhost",2017);
+        //NamingProxy namingProxy = new NamingProxy(args[0],2017);
+        NamingProxy namingProxy = new NamingProxy(namingServerIP,2017);
+        
         System.out.println("Server running");
         
         System.out.println("middleware.application.Base64Server.main() "+base64.getHost());

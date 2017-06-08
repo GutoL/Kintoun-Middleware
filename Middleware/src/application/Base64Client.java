@@ -16,10 +16,13 @@ import middleware.services.Base64OperationsProxy;
 public class Base64Client {
     
     public static void main(String[]args) throws Throwable{
-        NamingProxy namingProxy = new NamingProxy("localhost",2017);// servidor de nomes
-        
-        System.out.println("middleware.application.Base64Client.main() "+namingProxy.list());
-        
+        String namingServerIP=args[0];
+        if (namingServerIP==null){
+            namingServerIP="localhost";
+        }
+        //NamingProxy namingProxy = new NamingProxy(args[0],2017);// servidor de nomes
+        NamingProxy namingProxy = new NamingProxy(namingServerIP,2017);// servidor de nomes
+         
         Base64OperationsProxy b64proxy = (Base64OperationsProxy)namingProxy.lookup("Base64");
         System.out.println("middleware.application.Base64Client.main() "+b64proxy);
         System.out.println("middleware.application.Base64Client.main() "+b64proxy.getHost()+" "+b64proxy.getPort());
