@@ -31,6 +31,21 @@ public class Requests {
         }
     }
     
+    public HttpResponse<JsonNode> requestOP(String jsonToken, String id,String op){// op = pause or unpause
+        URL url = new URL();
+        try {
+            return Unirest.post(url.basicURL()+"servers/"+id+"/"+op)
+                    .header("X-Auth-Token", jsonToken)
+                    .asJson();
+        } catch (UnirestException ex) {
+        
+            Logger.getLogger(Requests.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+            
+        }
+        
+    }
+    
     public HttpResponse<JsonNode> requestServers(String jsonToken){
         URL url = new URL();
         HttpResponse<JsonNode> response=null;

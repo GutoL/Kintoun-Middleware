@@ -25,8 +25,8 @@ public class TokenRequestor {
     public String request(){
         
         this.credentials=new Credentials();
-        this.credentials.setTenantName("demo");
-        this.credentials.setPasswordCredentials(new PasswordCredentials("admin", "root"));
+        this.credentials.setTenantName("admin");// muda para o do projeto
+        this.credentials.setPasswordCredentials(new PasswordCredentials("admin", "secret")); //muda para o do projeto
         Auth auth=new Auth(credentials);
         
         Requests requests = new Requests();

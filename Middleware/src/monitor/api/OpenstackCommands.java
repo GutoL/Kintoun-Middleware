@@ -70,10 +70,10 @@ public class OpenstackCommands {
     public void pauseInstance(String id){
         
         Requests requests=new Requests();
-        HttpResponse<JsonNode> serversRequest=requests.requestServer(token,id);
+        HttpResponse<JsonNode> serversRequest = requests.requestOP(token, id, "pause");
         try {
             
-            
+            System.out.println(serversRequest.getBody());
             
         } catch (Exception e) {
         }
