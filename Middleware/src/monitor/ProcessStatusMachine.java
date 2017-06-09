@@ -62,7 +62,8 @@ public class ProcessStatusMachine extends Thread{
                 
                 if(machines.get(i).IP.equals(this.ipServer)){ // procurando o IP da máquina que tem que pausar
                     
-                    execScriptWithReturn("src/monitor/Shell/pause.sh", machines.get(i).name);// pause machine with return
+                    //execScriptWithReturn("src/monitor/Shell/pause.sh", machines.get(i).name);// pause machine with return
+                    execScriptWithReturn("Shell/pause.sh", machines.get(i).name);// pause machine with return
                     // teoricamente deveria se fazer o rebind aqui no servidor de nomes
                     
                     //porta default
