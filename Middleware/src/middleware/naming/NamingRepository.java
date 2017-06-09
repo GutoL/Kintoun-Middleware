@@ -58,7 +58,7 @@ public class NamingRepository {
     public ClientProxy getRecord(String serviceName){
         ClientProxy result=null;
         ArrayList<NamingRecord> namingRecords=this.getRecords().get(serviceName);
-        if (namingRecords!=null){
+        if (namingRecords!=null  && !namingRecords.isEmpty()){
             Random random=new Random();
             System.out.println("middleware.naming.NamingRepository.getRecord() "+namingRecords.size());
             int index=random.nextInt(namingRecords.size());
@@ -66,7 +66,28 @@ public class NamingRepository {
         }
         return result;
     }
+    /**
+     * Deletes the first IP occurence of Client Proxy of each service
+     * @param serviceName
+     * @param clientProxy 
+     */
     
+    public void deleteRecord(String serviceName, ClientProxy clientProxy){
+        int indexToBeDeleted=0;
+        for (ArrayList<NamingRecord> namingRecords : this.getRecords().values()){
+            if (!namingRecords.isEmpty()){
+                for (int i=0;i<namingRecords.size();i++){
+                    if (namingRecords.get(i).getClientProxy().getHost().equals(clientProxy.getHost())){
+                        indexToBeDeleted=i;
+                        break;
+                    }
+                }
+                System.out.println("middleware.naming.NamingRepository.deleteRecord() "+namingRecords.get(indexToBeDeleted));
+                namingRecords.remove(indexToBeDeleted);
+            }
+
+        }
+    }
     /*private static void createInstanceIfNotExists(){
         if (instance == null){
             System.out.println("middleware.naming.NamingRepository.createInstanceIfNotExists()");

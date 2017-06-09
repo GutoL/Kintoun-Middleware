@@ -14,6 +14,7 @@ import middleware.client.ClientProxy;
  */
 public interface INaming {
     public void bind(String serviceName, ClientProxy clientProxy);
+    public void unbind(String serviceName, ClientProxy clientProxy);
     public ClientProxy lookup(String serviceName);
     public ArrayList<String> list();
     

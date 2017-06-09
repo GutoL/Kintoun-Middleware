@@ -8,6 +8,8 @@ package monitor;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import middleware.client.ClientProxy;
 import middleware.naming.NamingProxy;
 
@@ -47,9 +49,9 @@ public class ProcessStatusMachine extends Thread{
            System.out.println("Stop machine: "+statusMachine.nameMachine);
            //execScriptSH("src/monitor/Shell/pause.sh", statusMachine.nameMachine);// pause machine
            
+           //TODO: mudar esse IP para inserirmos o IP na hora em que chamamos o jar
+           NamingProxy namingProxy = new NamingProxy("10.0.0.73",2017);// servidor de nomes
            
-           NamingProxy namingProxy = new NamingProxy("localhost",2017);// servidor de nomes
-           ClientProxy cp = new ClientProxy();
            
             //System.out.println("numero maquinas: "+machines.size());
            
@@ -62,6 +64,18 @@ public class ProcessStatusMachine extends Thread{
                     
                     execScriptWithReturn("src/monitor/Shell/pause.sh", machines.get(i).name);// pause machine with return
                     // teoricamente deveria se fazer o rebind aqui no servidor de nomes
+                    
+                    //porta default
+                    System.out.println("monitor.ProcessStatusMachine.run() "+ipServer);
+                    ClientProxy clientToBeDeleted=new ClientProxy(ipServer,1337);
+                    namingProxy.unbind("", clientToBeDeleted);
+                    
+                    /*try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(ProcessStatusMachine.class.getName()).log(Level.SEVERE, null, ex);
+                    }*/
+                    
                 }
                 
                 

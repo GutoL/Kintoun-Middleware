@@ -64,6 +64,7 @@ public class ClientRequestHandler {
   
   public byte[] receive() throws IOException{
       byte[] msg = null;
+      System.out.println("middleware.client.ClientRequestHandler.receive() "+inFromServer);
       receiveMessageSize = inFromServer.readInt();
       msg = new byte[receiveMessageSize];
       inFromServer.read(msg,0,receiveMessageSize);

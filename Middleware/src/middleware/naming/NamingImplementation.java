@@ -32,5 +32,12 @@ public class NamingImplementation implements INaming{
     public ArrayList<String> list() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void unbind(String serviceName, ClientProxy clientProxy) {
+        NamingRepository namingRepository=new NamingRepository();
+        namingRepository.deleteRecord(serviceName,clientProxy);
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

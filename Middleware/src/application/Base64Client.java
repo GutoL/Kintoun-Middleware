@@ -16,20 +16,29 @@ import middleware.services.Base64OperationsProxy;
 public class Base64Client {
     
     public static void main(String[]args) throws Throwable{
-        String namingServerIP=args[0];
-        if (namingServerIP==null){
-            namingServerIP="localhost";
+        String namingServerIP="localhost";
+        
+        try{
+            namingServerIP=args[0];
+        }
+        catch(IndexOutOfBoundsException e){
+            System.out.println("Base64Server.main() args not found, using localhost");
         }
         //NamingProxy namingProxy = new NamingProxy(args[0],2017);// servidor de nomes
         NamingProxy namingProxy = new NamingProxy(namingServerIP,2017);// servidor de nomes
          
         Base64OperationsProxy b64proxy = (Base64OperationsProxy)namingProxy.lookup("Base64");
-        System.out.println("middleware.application.Base64Client.main() "+b64proxy);
-        System.out.println("middleware.application.Base64Client.main() "+b64proxy.getHost()+" "+b64proxy.getPort());
+        if (b64proxy!=null){
+            System.out.println("middleware.application.Base64Client.main() "+b64proxy);
+            System.out.println("middleware.application.Base64Client.main() "+b64proxy.getHost()+" "+b64proxy.getPort());
         
-        String result=b64proxy.encode("lala");
+            String result=b64proxy.encode("lala");
         
-        System.out.println(result);
+            System.out.println(result);
+        }
         
+        else{
+            System.out.println("application.Base64Client.main() Lookup nao retornou um servico valido. Tente novamente apos alguns segundos");
+        }
     }
 }

@@ -128,9 +128,9 @@ public class MonitorController {
                 
                 
                 
-                System.out.println("Wait requisitions..... porta: "+srh.getPortNumber());
+                System.out.println("Wait requisitions..... port: "+srh.getPortNumber());
                 byte [] msg = srh.receive(true);
-                System.out.println("Recieve!!!!");
+                System.out.println("Receive!!!!");
                 String ipServer = srh.getConnectionSocket().getInetAddress().getHostAddress();
                 //System.out.println("ip server: "+ipServer);
                 

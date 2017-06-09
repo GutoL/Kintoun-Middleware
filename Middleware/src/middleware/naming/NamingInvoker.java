@@ -43,7 +43,7 @@ public class NamingInvoker {
             
             if(msgUnmarshalled.getMessageBody().getRequestBody().getParameters().size()>1){
                 clientProxy= (ClientProxy) msgUnmarshalled.getMessageBody().getRequestBody().getParameters().get(1);
-                System.out.println("middleware.naming.NamingInvoker.invoke() "+clientProxy.getHost());
+                System.out.println("middleware.naming.NamingInvoker.invoke() "+clientProxy.getHost()+ " "+msgUnmarshalled.getMessageBody().getRequestBody().getParameters());
             }
                     
             
@@ -72,6 +72,20 @@ public class NamingInvoker {
                     srh.send(msgMarshalled);
                     
                     break;                               
+                    
+                case "unbind":
+                    
+                    namingImplementation.unbind(serviceName,clientProxy);
+                    
+                    Message responseMessageUnbind= new Message(
+                        new MessageHeader("MIOP", 0, false, 0, 2),
+                        new MessageBody(null, null, new ReplyHeader("",0,0), new ReplyBody("OK")));
+                    msgMarshalled=marshaller.marshall(responseMessageUnbind);
+                    
+                    //System.out.println("teste");
+                    srh.send(msgMarshalled);
+                    
+                    break; 
             }  
             
         }
