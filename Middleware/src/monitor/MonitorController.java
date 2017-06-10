@@ -41,7 +41,8 @@ public class MonitorController {
             
             Runtime rt = Runtime.getRuntime();
             //String[] commands = {"system.exe","-get t"};
-            String commands = "./src/monitor/Shell/listInstances.sh";
+            //String commands = "./src/monitor/Shell/listInstances.sh";
+            String commands = "./Shell/listInstances.sh";
             //commands = "ifconfig";
             Process proc = rt.exec(commands);
 
