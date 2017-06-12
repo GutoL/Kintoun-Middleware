@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+package application;
+
 import monitor.MonitorController;
 import monitor.api.OpenstackCommands;
 import monitor.api.TokenRequestor;

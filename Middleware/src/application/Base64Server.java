@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package application;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -18,7 +19,7 @@ public class Base64Server {
     
     public static void main(String[]args) throws IOException, RemoteException, InterruptedException{
         String namingServerIP="localhost";
-        String myServerIP="localhost";
+        //String myServerIP="localhost";
         
         try{
             namingServerIP=args[0];
@@ -27,16 +28,10 @@ public class Base64Server {
             System.out.println("Base64Server.main() args[0] not found, using localhost as namingServer");
         }
         
-        try{
-            myServerIP=args[1];
-        }
-        catch(IndexOutOfBoundsException e){
-            System.out.println("Base64Server.main() args[1] not found, using localhost as myServer");
-        }
         
         Base64Invoker invoker = new Base64Invoker();
         System.out.println("Server running");
-        Base64OperationsProxy base64 = new Base64OperationsProxy(myServerIP,2018);
+        Base64OperationsProxy base64 = new Base64OperationsProxy(2018);
         System.out.println("Server running");
         //NamingProxy namingProxy = new NamingProxy(args[0],2017);
         NamingProxy namingProxy = new NamingProxy(namingServerIP,2017);

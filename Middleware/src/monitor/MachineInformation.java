@@ -13,8 +13,9 @@ public class MachineInformation {
     
     String IP;
     String name;
+    String id;
     int port;
-
+    
     public MachineInformation() {
     }
 
@@ -47,8 +48,19 @@ public class MachineInformation {
     public int getPort() {
         return port;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     
-   
+
+    
+    
     
     
 }

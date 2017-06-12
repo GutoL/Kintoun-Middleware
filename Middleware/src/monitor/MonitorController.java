@@ -129,9 +129,9 @@ public class MonitorController {
             //this.getListMachines();
             TokenRequestor tr=new TokenRequestor();
             String token=tr.request();
-            OpenstackCommands instanceServices=new OpenstackCommands();
-            instanceServices.setToken(token);
-            this.machines=instanceServices.getServers();
+            OpenstackCommands openstack=new OpenstackCommands();
+            openstack.setToken(token);
+            this.machines=openstack.getServers();
         
             while (true) {            
                 

@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import middleware.client.ClientProxy;
 import middleware.naming.NamingProxy;
+import monitor.api.OpenstackCommands;
 
 /**
  *
@@ -23,6 +24,7 @@ public class ProcessStatusMachine extends Thread{
     LimitResourcesMachine limitResourcesMachine;
     ArrayList<MachineInformation> machines = new ArrayList<>();
     String ipServer;
+    OpenstackCommands openstack;
 
     public ProcessStatusMachine() {
     }
@@ -33,7 +35,7 @@ public class ProcessStatusMachine extends Thread{
         this.limitResourcesMachine = limitResourcesMachine;
         this.machines = machines;
         this.ipServer = ip;
-        
+        openstack = new OpenstackCommands();
     }
     
        
@@ -64,8 +66,9 @@ public class ProcessStatusMachine extends Thread{
                 if(machines.get(i).IP.equals(this.ipServer)){ // procurando o IP da máquina que tem que pausar
                     
                     //execScriptWithReturn("src/monitor/Shell/pause.sh", machines.get(i).name);// pause machine with return
-                    execScriptWithReturn("Shell/pause.sh", machines.get(i).name);// pause machine with return
+                    //execScriptWithReturn("Shell/pause.sh", machines.get(i).name);// pause machine with return
                     // teoricamente deveria se fazer o rebind aqui no servidor de nomes
+                    openstack.pauseInstance(machines.get(i).id);
                     
                     //porta default
                     System.out.println("monitor.ProcessStatusMachine.run() "+ipServer);

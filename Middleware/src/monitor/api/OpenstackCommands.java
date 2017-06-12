@@ -22,7 +22,8 @@ import org.json.JSONObject;
 public class OpenstackCommands {
     private String token;
     //mudar caso o nome seja diferente da rede
-    private final static String NETWORK="intranet";
+    //private final static String NETWORK="intranet";// Demis
+    private final static String NETWORK="interna";// Guto
     
     public void setToken(String token){
         this.token=token;
@@ -32,8 +33,10 @@ public class OpenstackCommands {
         Requests requests=new Requests();
         ArrayList<MachineInformation> serversInformation=new ArrayList<>();
         HttpResponse<JsonNode> serversRequest=requests.requestServers(token);
-         try {
+         
+        try {
             JSONArray jsonArray= serversRequest.getBody().getObject().getJSONArray("servers");
+            
             for(int i=0;i<jsonArray.length();i++){
                 String id=jsonArray.getJSONObject(i).getString("id");
                 serversInformation.add(getServer(id));
@@ -53,6 +56,7 @@ public class OpenstackCommands {
             String ip=serversRequest.getBody().getObject().getJSONObject("server").getJSONObject("addresses").getJSONArray(NETWORK).getJSONObject(0).getString("addr");
             String name=serversRequest.getBody().getObject().getJSONObject("server").getString("name");
             machine.setIP(ip);
+            machine.setId(id);
             machine.setName(name);
             machine.setPort(1010);
              
@@ -76,12 +80,23 @@ public class OpenstackCommands {
             System.out.println(serversRequest.getBody());
             
         } catch (Exception e) {
+            e.printStackTrace();
         }
         
         
     }
     
     public void unPauseInstance(String id){
+     
+        Requests requests=new Requests();
+        HttpResponse<JsonNode> serversRequest = requests.requestOP(token, id, "unpause");
+        try {
+            
+            System.out.println(serversRequest.getBody());
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
     }
     

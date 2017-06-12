@@ -6,6 +6,7 @@
 package middleware.services;
 
 import java.io.Serializable;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import middleware.client.ClientProxy;
 import middleware.client.Requestor;
@@ -19,8 +20,19 @@ import middleware.util.Termination;
  */
 public class Base64OperationsProxy extends ClientProxy implements IBase64Operations, Serializable{
 
-    public Base64OperationsProxy(String host, int port){
-        super(host,port);
+    public Base64OperationsProxy(int port){
+        
+        
+        try {
+            
+            String host2 = InetAddress.getLocalHost().getHostAddress();// get local IP
+            this.host = host2;
+            this.port = port;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
     public Base64OperationsProxy(){
