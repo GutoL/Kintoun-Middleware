@@ -19,7 +19,7 @@ import org.json.JSONObject;
  *
  * @author gprt
  */
-public class InstanceServices {
+public class OpenstackCommands {
     private String token;
     //mudar caso o nome seja diferente da rede
     private final static String NETWORK="intranet";
@@ -40,7 +40,7 @@ public class InstanceServices {
             }    
             
         } catch (JSONException ex) {
-            Logger.getLogger(InstanceServices.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OpenstackCommands.class.getName()).log(Level.SEVERE, null, ex);
         }
         return serversInformation;
     }
@@ -57,7 +57,7 @@ public class InstanceServices {
             machine.setPort(1010);
              
         } catch (JSONException ex) {
-            Logger.getLogger(InstanceServices.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OpenstackCommands.class.getName()).log(Level.SEVERE, null, ex);
             machine=null;
         }
         
@@ -65,5 +65,25 @@ public class InstanceServices {
         return machine;
        
     }
+    
+    
+    public void pauseInstance(String id){
+        
+        Requests requests=new Requests();
+        HttpResponse<JsonNode> serversRequest=requests.requestServer(token,id);
+        try {
+            
+            
+            
+        } catch (Exception e) {
+        }
+        
+        
+    }
+    
+    public void unPauseInstance(String id){
+        
+    }
+    
     
 }

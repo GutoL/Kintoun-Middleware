@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import middleware.server.ServerRequestHandler;
 import middleware.util.Marshaller;
-import monitor.api.InstanceServices;
+import monitor.api.OpenstackCommands;
 import monitor.api.TokenRequestor;
 
 /**
@@ -129,7 +129,7 @@ public class MonitorController {
             //this.getListMachines();
             TokenRequestor tr=new TokenRequestor();
             String token=tr.request();
-            InstanceServices instanceServices=new InstanceServices();
+            OpenstackCommands instanceServices=new OpenstackCommands();
             instanceServices.setToken(token);
             this.machines=instanceServices.getServers();
         
