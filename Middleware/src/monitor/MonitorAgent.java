@@ -60,7 +60,8 @@ public class MonitorAgent extends Thread{
         
     }
     public void sendStatusMachine(StatusMachine sm){
-        crh = new ClientRequestHandler("localhost", 2425); // IP and port of  MonitorController
+        //demis:10.0.0.75
+        crh = new ClientRequestHandler("10.0.0.75", 2425); // IP and port of  MonitorController
         Marshaller marshaller = new Marshaller();
         byte [] statusMsg;
         

@@ -130,7 +130,7 @@ public class MonitorController {
             TokenRequestor tr=new TokenRequestor();
             String token=tr.request();
             OpenstackCommands openstack=new OpenstackCommands();
-            openstack.setToken(token);
+            OpenstackCommands.token=token;
             this.machines=openstack.getServers();
         
             while (true) {            

@@ -20,14 +20,11 @@ import org.json.JSONObject;
  * @author gprt
  */
 public class OpenstackCommands {
-    private String token;
+    public static String token;
     //mudar caso o nome seja diferente da rede
-    //private final static String NETWORK="intranet";// Demis
-    private final static String NETWORK="interna";// Guto
+    private final static String NETWORK="intranet";// Demis
+    //private final static String NETWORK="interna";// Guto
     
-    public void setToken(String token){
-        this.token=token;
-    }
     
     public ArrayList<MachineInformation> getServers(){
         Requests requests=new Requests();

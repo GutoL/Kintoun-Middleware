@@ -10,8 +10,8 @@ package monitor.api;
  * @author gprt
  */
 public class URL {
-    //private final String serverIP="192.168.0.145";// Demis
-    private final String serverIP="127.0.0.1"; // Guto
+    private final String serverIP="192.168.0.145";// Demis
+    //private final String serverIP="127.0.0.1"; // Guto
 
     public String getServerIP() {
         return serverIP;
