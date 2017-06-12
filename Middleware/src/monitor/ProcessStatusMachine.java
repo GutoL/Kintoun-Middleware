@@ -39,6 +39,7 @@ public class ProcessStatusMachine extends Thread{
        
     public void run(){
         
+        
         if((statusMachine.CPUConsumption >= this.limitResourcesMachine.getLimitCPU()) ||
                 (statusMachine.memoryConsumption>=this.limitResourcesMachine.getLimitMemory())){
             

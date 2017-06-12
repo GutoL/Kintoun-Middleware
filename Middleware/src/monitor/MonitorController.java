@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import middleware.server.ServerRequestHandler;
 import middleware.util.Marshaller;
+import monitor.api.InstanceServices;
+import monitor.api.TokenRequestor;
 
 /**
  *
@@ -123,7 +125,13 @@ public class MonitorController {
         
         try {
         
-            this.getListMachines();
+            //this.getListMachines();
+            TokenRequestor tr=new TokenRequestor();
+            String token=tr.request();
+            InstanceServices instanceServices=new InstanceServices();
+            instanceServices.setToken(token);
+            this.machines=instanceServices.getServers();
+        
             while (true) {            
                 
                 
