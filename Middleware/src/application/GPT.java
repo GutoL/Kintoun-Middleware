@@ -5,7 +5,7 @@
  */
 
 import monitor.MonitorController;
-import monitor.api.InstanceServices;
+import monitor.api.OpenstackCommands;
 import monitor.api.TokenRequestor;
 
 /**
