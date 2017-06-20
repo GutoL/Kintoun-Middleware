@@ -47,7 +47,7 @@ public class MonitorAgent extends Thread{
             
             try {
                 
-                Thread.sleep((long) (this.time*1000));
+                Thread.sleep((long) (this.time*5000));
             
             } catch (InterruptedException ex) {
                 Logger.getLogger(MonitorAgent.class.getName()).log(Level.SEVERE, null, ex);
