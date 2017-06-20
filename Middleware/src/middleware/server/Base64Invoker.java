@@ -25,6 +25,17 @@ import monitor.ZabixFake;
  */
 public class Base64Invoker {
     
+    String GPTIP;
+
+    public void setGPTIP(String GPTIP) {
+        this.GPTIP = GPTIP;
+    }
+
+    public String getGPTIP() {
+        return GPTIP;
+    }
+    
+    
     public void invoke(ClientProxy clientProxy) throws RemoteException, IOException, InterruptedException{
         ServerRequestHandler srh = new ServerRequestHandler(clientProxy.getPort());
         byte[] msgToBeUnmarshalled = null;
@@ -38,7 +49,8 @@ public class Base64Invoker {
         
         // starting monitor agent
         ZabixFake zf = new ZabixFake();
-        MonitorAgent agent = new MonitorAgent(zf, 1, "VM1"); // time in seconds
+        MonitorAgent agent = new MonitorAgent(zf, 1, this.GPTIP); // time in seconds
+        //MonitorAgent agent = new MonitorAgent(zf, 1, "VM1"); // time in seconds
         agent.start();
        
         while (true){

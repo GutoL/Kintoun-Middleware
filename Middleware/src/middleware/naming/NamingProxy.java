@@ -47,14 +47,20 @@ public class NamingProxy implements INaming {
         this.port = port;
     }
 
-    public NamingProxy(String host, int port) {
+    public NamingProxy(String host,int port) {
+        
+        this.host = host;
+        this.port = port;
+        
+    }
+    
+    public NamingProxy(int port){
         try {
             this.host = InetAddress.getLocalHost().getHostAddress();
             this.port = port;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
     }
 
     @Override

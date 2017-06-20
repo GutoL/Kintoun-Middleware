@@ -20,7 +20,7 @@ public class ServerNames {
         System.out.println("Registry is ready...");
         
  
-        NamingProxy namingProxy=new NamingProxy("localhost",2017);
+        NamingProxy namingProxy=new NamingProxy(2017);// port
         NamingInvoker invoker = new NamingInvoker();
         
         System.out.println(namingProxy.getHost());

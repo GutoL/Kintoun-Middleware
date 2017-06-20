@@ -18,22 +18,19 @@ public class MonitorAgent extends Thread{
  
     MonitorInterface monitor;
     float time;// time in seconds
-    String nameMachine;
+    //String nameMachine;
     ClientRequestHandler crh;
+    String GPTIP;
         
 
     public MonitorAgent() {
     }
 
-    public MonitorAgent(String name){
-        this.nameMachine = name;
-    }
     
-    public MonitorAgent(MonitorInterface monitor, float time, String name) {
+    public MonitorAgent(MonitorInterface monitor, float time, String GPT) {
         this.monitor = monitor;
         this.time = time;
-        this.nameMachine = name;
-        
+        this.GPTIP = GPT;
     }
     
     
@@ -61,13 +58,13 @@ public class MonitorAgent extends Thread{
     }
     public void sendStatusMachine(StatusMachine sm){
         //demis:10.0.0.75
-        crh = new ClientRequestHandler("10.0.0.75", 2425); // IP and port of  MonitorController
+        crh = new ClientRequestHandler(this.GPTIP, 2425); // IP and port of  MonitorController
         Marshaller marshaller = new Marshaller();
         byte [] statusMsg;
         
         try {
         
-            sm.nameMachine = this.nameMachine;
+            //sm.nameMachine = this.nameMachine;
             System.out.println(sm.CPUConsumption);
             statusMsg  = marshaller.marshall(sm);
             //System.out.println("IP: "+crh.getHost()+" porta: "+crh.getPort());
