@@ -28,6 +28,8 @@ public class Base64Client {
         NamingProxy namingProxy = new NamingProxy(namingServerIP,2017);// servidor de nomes
          
         Base64OperationsProxy b64proxy = (Base64OperationsProxy)namingProxy.lookup("Base64");
+        b64proxy.setNamingServerIP(namingServerIP);
+        
         if (b64proxy!=null){
             System.out.println("middleware.application.Base64Client.main() "+b64proxy);
             System.out.println("middleware.application.Base64Client.main() "+b64proxy.getHost()+" "+b64proxy.getPort());

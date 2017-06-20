@@ -6,6 +6,8 @@
 package middleware.naming;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,8 +48,13 @@ public class NamingProxy implements INaming {
     }
 
     public NamingProxy(String host, int port) {
-        this.host = host;
-        this.port = port;
+        try {
+            this.host = InetAddress.getLocalHost().getHostAddress();
+            this.port = port;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
     @Override

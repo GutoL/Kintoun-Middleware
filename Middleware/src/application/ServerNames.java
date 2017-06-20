@@ -18,9 +18,12 @@ public class ServerNames {
     public static void main(String args[]) throws IOException, InterruptedException{
         
         System.out.println("Registry is ready...");
+        
  
         NamingProxy namingProxy=new NamingProxy("localhost",2017);
         NamingInvoker invoker = new NamingInvoker();
+        
+        System.out.println(namingProxy.getHost());
         
         invoker.invoke(namingProxy);
         

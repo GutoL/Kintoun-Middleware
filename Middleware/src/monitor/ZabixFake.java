@@ -5,6 +5,8 @@
  */
 package monitor;
 
+import java.util.Random;
+
 /**
  *
  * @author guto
@@ -49,10 +51,17 @@ public class ZabixFake implements MonitorInterface {
     public StatusMachine getStatusMachine() {
         if(CPUConsumption < 100 && memoryConsumption < 100){
             
+            /*
             this.memoryConsumption = this.memoryConsumption + (rate*100);
             this.CPUConsumption = this.CPUConsumption + (rate*100);
             System.out.println("CPU: "+this.CPUConsumption+" memory: "+this.memoryConsumption);
-        
+            */
+            
+            Random generator = new Random();
+            this.memoryConsumption = generator.nextInt(100);
+            this.CPUConsumption = generator.nextInt(100);
+            
+            
         }
         this.sm = new StatusMachine(this.memoryConsumption, this.CPUConsumption);
         return this.sm;

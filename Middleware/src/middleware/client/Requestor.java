@@ -46,7 +46,8 @@ public class Requestor {
        //faz o marshall da mensagem
        msgMarshalled = marshaller.marshall(msgToBeMarshalled);
        
-       int limit = 4;
+       int limit = 40;
+       int time = 5000;
        int attemptsGetIP , attemptsSendMessage;
        
         ClientRequestHandler crh=new ClientRequestHandler(invocation.getIpAddress(), invocation.getPortNumber());
@@ -73,16 +74,13 @@ public class Requestor {
 
                    } catch (Exception e) {
 
-                       Thread.sleep(5000);
-                       
+                       Thread.sleep(time);
+                       time = time + 1000;
                    }
 
                }
         //} 
        
-       
-       
-            
        
        
         return null;
