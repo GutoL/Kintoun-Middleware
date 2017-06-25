@@ -49,7 +49,7 @@ public class ProcessStatusMachine extends Thread{
            //System.out.println("Status Memory: "+this.statusMachine.CPUConsumption);
             
            // aqui dá o comando para o devstack para a máquina, iniciar a standby e fazer o rebind no servidor de nomes
-           System.out.println("Stop machineeee: "+statusMachine.nameMachine);
+           //System.out.println("Stop machineeee: "+statusMachine.nameMachine);
            //execScriptSH("src/monitor/Shell/pause.sh", statusMachine.nameMachine);// pause machine
            
            //TODO: mudar esse IP para inserirmos o IP na hora em que chamamos o jar
@@ -68,19 +68,23 @@ public class ProcessStatusMachine extends Thread{
                     //execScriptWithReturn("src/monitor/Shell/pause.sh", machines.get(i).name);// pause machine with return
                     //execScriptWithReturn("Shell/pause.sh", machines.get(i).name);// pause machine with return
                     // teoricamente deveria se fazer o rebind aqui no servidor de nomes
-                    openstack.pauseInstance(machines.get(i).id);
+                    
+                    openstack.pauseInstance(machines.get(i).id);// pause machine
                     
                     //porta default
                     System.out.println("monitor.ProcessStatusMachine.run() "+ipServer);
                     ClientProxy clientToBeDeleted=new ClientProxy(ipServer,1337);
                     namingProxy.unbind("", clientToBeDeleted);
-                    
-                    /*try {
+                    machines.remove(i);
+                    if(machines.size() > 0){
+                        openstack.unPauseInstance(machines.get(0).id);// unpause another machine
+                    }
+                        /*try {
                         Thread.sleep(5000);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(ProcessStatusMachine.class.getName()).log(Level.SEVERE, null, ex);
                     }*/
-                    
+                    break;
                 }
                 
                 
