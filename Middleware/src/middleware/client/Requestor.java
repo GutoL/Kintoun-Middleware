@@ -76,7 +76,7 @@ public class Requestor {
                    } catch (Exception e) {
 
                        Thread.sleep(time);
-                       time = time + 1000;
+                       time = time + 100;
                        System.out.println("Try again..."+attemptsSendMessage);
                    }
 
