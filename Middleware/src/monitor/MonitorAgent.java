@@ -27,10 +27,11 @@ public class MonitorAgent extends Thread{
     }
 
     
-    public MonitorAgent(MonitorInterface monitor, float time, String GPT) {
+    public MonitorAgent(MonitorInterface monitor, float time) {
         this.monitor = monitor;
         this.time = time;
-        this.GPTIP = GPT;
+        //GetInfo getInfo = GetInfo.getInstance();
+        this.GPTIP = GetInfo.getInstance().gptIP;
     }
     
     

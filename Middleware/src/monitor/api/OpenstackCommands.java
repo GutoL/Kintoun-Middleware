@@ -24,7 +24,6 @@ public class OpenstackCommands {
     public static String token;
     //mudar caso o nome seja diferente da rede
     //private final static String NETWORK="intranet";// Demis
-    GetInfo getInfo = GetInfo.getInstance();
     private static String NETWORK;// Guto
     //private final static String NETWORK= "interna";// Guto
     
@@ -34,7 +33,7 @@ public class OpenstackCommands {
         ArrayList<MachineInformation> serversInformation=new ArrayList<>();
         HttpResponse<JsonNode> serversRequest=requests.requestServers(token);
         
-        NETWORK = getInfo.getNetworkName();
+        NETWORK = GetInfo.getInstance().getNetworkName();
         System.out.println("Rede: "+NETWORK);
          
         try {
@@ -57,8 +56,8 @@ public class OpenstackCommands {
         HttpResponse<JsonNode> serversRequest=requests.requestServer(token,id);
         MachineInformation machine=new MachineInformation();
         
-        NETWORK = getInfo.getNetworkName();
-        System.out.println("Rede: "+NETWORK);
+        NETWORK = GetInfo.getInstance().getNetworkName();
+        System.out.println("Rede: "+NETWORK);// teste
         
         try {
             String ip=serversRequest.getBody().getObject().getJSONObject("server").getJSONObject("addresses").getJSONArray(NETWORK).getJSONObject(0).getString("addr");

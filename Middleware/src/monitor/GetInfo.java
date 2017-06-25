@@ -17,8 +17,8 @@ import java.util.ArrayList;
 public class GetInfo {
     
     private static GetInfo instance = null;
-    String tenant, user, password, serverNameIP, networkName;
-    // teste
+    String tenant, user, password, serverNameIP, gptIP, networkName;
+
     
     
     public static synchronized GetInfo getInstance(){
@@ -51,6 +51,10 @@ public class GetInfo {
     public String getNetworkName() {
         return networkName;
     }
+
+    public String getGptIP() {
+        return gptIP;
+    }
     
     
     
@@ -62,12 +66,18 @@ public class GetInfo {
             BufferedReader lerArq = new BufferedReader(arq);
 
             String line = lerArq.readLine(); // lê a primeira linha
-      
+            
+            int i = 1;
             while (line != null) {
               //System.out.printf("%s\n", line);
               
-              lines.add(line); // lê da segunda até a última linha
-              line = lerArq.readLine();
+              if(i % 2 == 0){
+                  //System.out.println("Olhaaa: "+line);
+                  lines.add(line); 
+              }
+              
+              line = lerArq.readLine();// lê da segunda até a última linha
+              i++;
               
             }
 
@@ -75,11 +85,13 @@ public class GetInfo {
             this.tenant = lines.get(0);
             this.user = lines.get(1);
             this.password = lines.get(2);
-            this.serverNameIP = lines.get(3);
-            this.networkName = lines.get(4);
+            this.networkName = lines.get(3);
+            this.serverNameIP = lines.get(4);
+            this.gptIP = lines.get(5);
+            
             
           } catch (IOException e) {
-              System.err.printf("Erro na abertura do arquivo: %s.\n",
+              System.err.printf("Error in open file: %s.\n",
                 e.getMessage());
           }
         

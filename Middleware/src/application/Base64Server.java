@@ -19,12 +19,12 @@ public class Base64Server {
     
     public static void main(String[]args) throws IOException, RemoteException, InterruptedException{
         String namingServerIP="localhost";
-        String GPTIP = "localhost";
+        
         //String myServerIP="localhost";
         
         try{
             namingServerIP=args[0];
-            GPTIP = args[1];
+            
         }
         catch(IndexOutOfBoundsException e){
             System.out.println("Base64Server.main() args[0] not found, using localhost as namingServer");
@@ -32,7 +32,7 @@ public class Base64Server {
         
         
         Base64Invoker invoker = new Base64Invoker();
-        invoker.setGPTIP(GPTIP);
+        
         System.out.println("Server running");
         Base64OperationsProxy base64 = new Base64OperationsProxy(2018);
         System.out.println("Server running");
