@@ -7,6 +7,7 @@ package middleware.services;
 
 import java.io.Serializable;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.util.ArrayList;
 import middleware.client.ClientProxy;
 import middleware.client.Requestor;
@@ -32,13 +33,14 @@ public class Base64OperationsProxy extends ClientProxy implements IBase64Operati
     }
     
     
-    public Base64OperationsProxy(int port){
+    public Base64OperationsProxy(String host2, int port){
         
         
         try {
             
             //String host2 = InetAddress.getLocalHost().getHostAddress();// get local IP
-            //this.host = host2;
+            this.host = host2;
+            //this.host = NetworkInterface.get;
             this.port = port;
             
         } catch (Exception e) {
