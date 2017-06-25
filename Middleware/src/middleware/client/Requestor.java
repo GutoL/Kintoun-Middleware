@@ -25,7 +25,7 @@ import middleware.util.Termination;
 public class Requestor {
     public Termination invoke(Invocation invocation) throws UnknownHostException, IOException, Throwable{
         
-       
+        
         Marshaller marshaller = new Marshaller();
         Termination termination = new Termination();
         
@@ -47,7 +47,7 @@ public class Requestor {
        msgMarshalled = marshaller.marshall(msgToBeMarshalled);
        
        int limit = 40;
-       int time = 5000;
+       int time = 50; // era 5000
        int attemptsGetIP , attemptsSendMessage;
        
         ClientRequestHandler crh=new ClientRequestHandler(invocation.getIpAddress(), invocation.getPortNumber());
@@ -60,10 +60,11 @@ public class Requestor {
 
                        //manda a mensagem de request
                        crh.send(msgMarshalled);
+                       System.out.println("mandando para o servidor");
 
                        //recebe a mensagem de retorno
                        msgToBeUnmarshalled = crh.receive();
-
+                       System.out.println("Recebi do servidor!");
                        //dá o unmarshall da mensagem
                        msgUnmarshalled = (Message)marshaller.unmarshall(msgToBeUnmarshalled);
 

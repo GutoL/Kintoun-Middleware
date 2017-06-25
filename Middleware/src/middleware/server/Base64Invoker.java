@@ -45,6 +45,7 @@ public class Base64Invoker {
        
         while (true){
             msgToBeUnmarshalled = srh.receive();
+            System.out.println("RECEBI!!!!!!");
             msgUnmarshalled = (Message) marshaller.unmarshall(msgToBeUnmarshalled);
             String word= (String) msgUnmarshalled.getMessageBody().getRequestBody().getParameters().get(0);
                     
@@ -63,6 +64,7 @@ public class Base64Invoker {
                 msgMarshalled=marshaller.marshall(responseMessage);
                 
                 Thread.sleep(100);// AQUI
+                System.out.println("Mandando de volta!!!!!");
                 srh.send(msgMarshalled);
             
             

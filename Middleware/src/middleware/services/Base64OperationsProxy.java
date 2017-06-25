@@ -75,6 +75,7 @@ public class Base64OperationsProxy extends ClientProxy implements IBase64Operati
         for (int x = 0; x < 3; x++) {
         
             try {
+                System.out.println("se liga");
                 termination=requestor.invoke(invocation);
                 return (String) termination.getResult(); 
             } catch (Exception e) {
@@ -82,7 +83,10 @@ public class Base64OperationsProxy extends ClientProxy implements IBase64Operati
                 this.namingServerIP = GetInfo.getInstance().getServerNameIP();
                 
                 NamingProxy namingProxy = new NamingProxy(this.namingServerIP,2017);
+                
+                //System.out.println("antes do lookup =]");
                 Base64OperationsProxy b64proxy = (Base64OperationsProxy)namingProxy.lookup("Base64");
+                //System.out.println(""+b64proxy.getHost()+" "+b64proxy.getPort());
                 invocation.setIpAddress(b64proxy.getHost());
                 invocation.setPortNumber(b64proxy.getPort());
             

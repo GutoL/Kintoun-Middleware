@@ -33,8 +33,18 @@ public class Base64Server {
         
         Base64Invoker invoker = new Base64Invoker();
         
-        System.out.println("Server running");
-        Base64OperationsProxy base64 = new Base64OperationsProxy(args[0],2018);
+        //System.out.println("Server running");
+        Base64OperationsProxy base64;
+        try {
+            base64 = new Base64OperationsProxy(args[0],2018);
+            
+        } catch (Exception e) {
+            base64 = new Base64OperationsProxy("localhost",2018);
+        }
+             
+        
+        
+        
         System.out.println("Server running");
         
         //NamingProxy namingProxy = new NamingProxy(args[0],2017);

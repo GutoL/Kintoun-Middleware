@@ -35,20 +35,23 @@ public class Base64Client {
         Random gerador = new Random();
         
         if (b64proxy!=null){
-            System.out.println("middleware.application.Base64Client.main() "+b64proxy);
-            System.out.println("middleware.application.Base64Client.main() "+b64proxy.getHost()+" "+b64proxy.getPort());
+            //System.out.println("middleware.application.Base64Client.main() "+b64proxy);
+            System.out.println("middleware.application.Base64Client.main() "+b64proxy.getHost()+" porta:"+b64proxy.getPort());
             
             while(true){
                 
+                System.out.println("Enviado requisição para o IP: "+b64proxy.getHost());
                 String result=b64proxy.encode(String.valueOf(gerador.nextDouble()));
-                System.out.println(result); 
+                System.out.println("Resultado: "+result);
+                
+                Thread.sleep(3000);
             
             }
             
         }
         
         else{
-            System.out.println("application.Base64Client.main() Lookup nao retornou um servico valido. Tente novamente apos alguns segundos");
+            System.out.println("application.Base64Client.main() Lookup não retornou um serviço válido. Tente novamente após alguns segundos");
         }
     }
 }
