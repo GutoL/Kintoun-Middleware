@@ -41,10 +41,13 @@ public class ProcessStatusMachine extends Thread{
        
     public void run(){
         
+        System.out.println("CPU "+statusMachine.CPUConsumption+" Limit: "+limitResourcesMachine.getLimitCPU());
+        //System.out.println("Memory "+statusMachine.memoryConsumption+" Limit: "+limitResourcesMachine.getLimitMemory());
         
-        if((statusMachine.CPUConsumption >= this.limitResourcesMachine.getLimitCPU()) ||
-                (statusMachine.memoryConsumption>=this.limitResourcesMachine.getLimitMemory())){
-            
+        //if((statusMachine.CPUConsumption >= this.limitResourcesMachine.getLimitCPU()) ||
+        //        (statusMachine.memoryConsumption>=this.limitResourcesMachine.getLimitMemory())){
+        if(statusMachine.CPUConsumption >= this.limitResourcesMachine.getLimitCPU()){  
+        
            //System.out.println("Status CPU: "+this.statusMachine.CPUConsumption);
            //System.out.println("Status Memory: "+this.statusMachine.CPUConsumption);
             
@@ -52,7 +55,7 @@ public class ProcessStatusMachine extends Thread{
            //System.out.println("Stop machineeee: "+statusMachine.nameMachine);
            //execScriptSH("src/monitor/Shell/pause.sh", statusMachine.nameMachine);// pause machine
            
-           //TODO: mudar esse IP para inserirmos o IP na hora em que chamamos o jar
+           
            NamingProxy namingProxy = new NamingProxy(GetInfo.getInstance().serverNameIP,2017);// servidor de nomes
            
            
@@ -69,15 +72,22 @@ public class ProcessStatusMachine extends Thread{
                     //execScriptWithReturn("Shell/pause.sh", machines.get(i).name);// pause machine with return
                     // teoricamente deveria se fazer o rebind aqui no servidor de nomes
                     
+                    System.out.println("Pause machine: "+machines.get(i).name);
                     openstack.pauseInstance(machines.get(i).id);// pause machine
                     
                     //porta default
-                    System.out.println("monitor.ProcessStatusMachine.run() "+ipServer);
+                    //System.out.println("monitor.ProcessStatusMachine.run() "+ipServer);
+                    
                     ClientProxy clientToBeDeleted=new ClientProxy(ipServer,1337);
-                    namingProxy.unbind("", clientToBeDeleted);
-                    machines.remove(i);
-                    if(machines.size() > 0){
-                        openstack.unPauseInstance(machines.get(0).id);// unpause another machine
+                    //namingProxy.unbind("", clientToBeDeleted);
+                    
+                    if(i > 0){
+                        System.out.println("Unpause machine: "+machines.get(i-1).name);
+                        openstack.unPauseInstance(machines.get(i-1).id);// unpause another machine
+                    }
+                    else{
+                        System.out.println("Unpause machine: "+machines.get(i+1).name);
+                        openstack.unPauseInstance(machines.get(i+1).id);// unpause another machine
                     }
                         /*try {
                         Thread.sleep(5000);
