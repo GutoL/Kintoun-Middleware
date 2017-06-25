@@ -18,7 +18,7 @@ public class GetInfo {
     
     private static GetInfo instance = null;
     String tenant, user, password, serverNameIP, networkName;
-
+    // teste
     
     
     public static synchronized GetInfo getInstance(){
