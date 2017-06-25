@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class GetInfo {
     
     private static GetInfo instance = null;
-    String tenant, user, password, serverNameIP, gptIP, networkName;
+    String tenant, user, password, serverNameIP, gptIP, networkName, OpenStackIP;
     float limitResourcesMachine;
 
     
@@ -59,6 +59,10 @@ public class GetInfo {
     public float getLimitResourcesMachine() {
         return limitResourcesMachine;
     }
+
+    public String getOpenStackIP() {
+        return OpenStackIP;
+    }
     
     
     
@@ -91,9 +95,10 @@ public class GetInfo {
             this.user = lines.get(1);
             this.password = lines.get(2);
             this.networkName = lines.get(3);
-            this.serverNameIP = lines.get(4);
-            this.gptIP = lines.get(5);
-            this.limitResourcesMachine = Float.parseFloat(lines.get(6));
+            this.OpenStackIP = lines.get(4);
+            this.serverNameIP = lines.get(5);
+            this.gptIP = lines.get(6);
+            this.limitResourcesMachine = Float.parseFloat(lines.get(7));
             
             
           } catch (IOException e) {
