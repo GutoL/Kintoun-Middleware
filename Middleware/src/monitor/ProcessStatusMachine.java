@@ -49,11 +49,11 @@ public class ProcessStatusMachine extends Thread{
            //System.out.println("Status Memory: "+this.statusMachine.CPUConsumption);
             
            // aqui dá o comando para o devstack para a máquina, iniciar a standby e fazer o rebind no servidor de nomes
-           System.out.println("Stop machine: "+statusMachine.nameMachine);
+           System.out.println("Stop machineeee: "+statusMachine.nameMachine);
            //execScriptSH("src/monitor/Shell/pause.sh", statusMachine.nameMachine);// pause machine
            
            //TODO: mudar esse IP para inserirmos o IP na hora em que chamamos o jar
-           NamingProxy namingProxy = new NamingProxy("10.0.0.73",2017);// servidor de nomes
+           NamingProxy namingProxy = new NamingProxy(GetInfo.getInstance().serverNameIP,2017);// servidor de nomes
            
            
             //System.out.println("numero maquinas: "+machines.size());
@@ -62,7 +62,7 @@ public class ProcessStatusMachine extends Thread{
                 
                  //System.out.println("List: "+machines.get(i).IP);
                  //System.out.println("IP server: "+this.ipServer);
-                
+                System.out.println(machines.get(i).IP+" - "+this.ipServer);
                 if(machines.get(i).IP.equals(this.ipServer)){ // procurando o IP da máquina que tem que pausar
                     
                     //execScriptWithReturn("src/monitor/Shell/pause.sh", machines.get(i).name);// pause machine with return
