@@ -21,7 +21,7 @@ public class MonitorController {
     
         private int port;
         LimitResourcesMachine limitResourcesMachine;
-        ArrayList<MachineInformation> machines = new ArrayList<>(); // como preencher essa lista?
+        ArrayList<MachineInformation> machines = new ArrayList<>(); 
         
 
         public MonitorController() {

@@ -56,7 +56,7 @@ public class NamingProxy implements INaming {
     
     public NamingProxy(int port){
         try {
-            this.host = InetAddress.getLocalHost().getHostAddress();
+            this.host = "10.0.2.15"; // AQUI
             this.port = port;
         } catch (Exception e) {
             e.printStackTrace();

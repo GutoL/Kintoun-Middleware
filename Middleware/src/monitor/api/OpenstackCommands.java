@@ -22,8 +22,8 @@ import org.json.JSONObject;
 public class OpenstackCommands {
     public static String token;
     //mudar caso o nome seja diferente da rede
-    private final static String NETWORK="intranet";// Demis
-    //private final static String NETWORK="interna";// Guto
+    //private final static String NETWORK="intranet";// Demis
+    private final static String NETWORK="interna";// Guto
     
     
     public ArrayList<MachineInformation> getServers(){
