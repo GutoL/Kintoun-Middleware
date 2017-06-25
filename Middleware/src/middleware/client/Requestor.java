@@ -46,7 +46,7 @@ public class Requestor {
        //faz o marshall da mensagem
        msgMarshalled = marshaller.marshall(msgToBeMarshalled);
        
-       int limit = 40;
+       int limit = 5;
        int time = 50; // era 5000
        int attemptsGetIP , attemptsSendMessage;
        
@@ -77,6 +77,7 @@ public class Requestor {
 
                        Thread.sleep(time);
                        time = time + 1000;
+                       System.out.println("Try again..."+attemptsSendMessage);
                    }
 
                }
