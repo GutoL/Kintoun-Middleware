@@ -60,9 +60,11 @@ public class OpenstackCommands {
         System.out.println("Rede: "+NETWORK);// teste
         
         try {
-            String ip=serversRequest.getBody().getObject().getJSONObject("server").getJSONObject("addresses").getJSONArray(NETWORK).getJSONObject(0).getString("addr");
+            System.out.println("AQUI: "+serversRequest.getBody().toString());
+            String ip=serversRequest.getBody().getObject().getJSONObject("server").getJSONObject("addresses").getJSONArray(NETWORK).getJSONObject(1).getString("addr");
             String name=serversRequest.getBody().getObject().getJSONObject("server").getString("name");
             machine.setIP(ip);
+            System.out.println("IP externo: "+ip);
             machine.setId(id);
             machine.setName(name);
             machine.setPort(1010);
