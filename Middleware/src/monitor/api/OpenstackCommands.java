@@ -10,6 +10,7 @@ import com.mashape.unirest.http.JsonNode;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import monitor.GetInfo;
 import monitor.MachineInformation;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,13 +24,18 @@ public class OpenstackCommands {
     public static String token;
     //mudar caso o nome seja diferente da rede
     //private final static String NETWORK="intranet";// Demis
-    private final static String NETWORK="interna";// Guto
+    GetInfo getInfo = GetInfo.getInstance();
+    private static String NETWORK;// Guto
+    //private final static String NETWORK= "interna";// Guto
     
     
     public ArrayList<MachineInformation> getServers(){
         Requests requests=new Requests();
         ArrayList<MachineInformation> serversInformation=new ArrayList<>();
         HttpResponse<JsonNode> serversRequest=requests.requestServers(token);
+        
+        NETWORK = getInfo.getNetworkName();
+        System.out.println("Rede: "+NETWORK);
          
         try {
             JSONArray jsonArray= serversRequest.getBody().getObject().getJSONArray("servers");
@@ -46,9 +52,14 @@ public class OpenstackCommands {
     }
     
     public MachineInformation getServer(String id){
+        
         Requests requests=new Requests();
         HttpResponse<JsonNode> serversRequest=requests.requestServer(token,id);
         MachineInformation machine=new MachineInformation();
+        
+        NETWORK = getInfo.getNetworkName();
+        System.out.println("Rede: "+NETWORK);
+        
         try {
             String ip=serversRequest.getBody().getObject().getJSONObject("server").getJSONObject("addresses").getJSONArray(NETWORK).getJSONObject(0).getString("addr");
             String name=serversRequest.getBody().getObject().getJSONObject("server").getString("name");

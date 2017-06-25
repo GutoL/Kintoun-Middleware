@@ -21,6 +21,7 @@ import middleware.util.ReplyBody;
 import middleware.util.ReplyHeader;
 import middleware.util.RequestBody;
 import middleware.util.RequestHeader;
+import monitor.GetInfo;
 
 /**
  *
@@ -56,8 +57,12 @@ public class NamingProxy implements INaming {
     
     public NamingProxy(int port){
         try {
-            this.host = "10.0.2.15"; // AQUI
+            GetInfo info = GetInfo.getInstance();
+            //info.readInfo("info.cfg");
+            
+            this.host = info.getServerNameIP(); //"10.0.2.15"; // AQUI
             this.port = port;
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

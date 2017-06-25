@@ -12,6 +12,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import monitor.GetInfo;
 import org.json.JSONException;
 
 /**
@@ -21,12 +22,17 @@ import org.json.JSONException;
 public class TokenRequestor {
     private String token;
     private Credentials credentials;
+    private GetInfo info = GetInfo.getInstance();
     
     public String request(){
         
+        System.out.println("Tenant: "+info.getTenant()+" User: "+info.getUser()+" password: "+info.getPassword());
+        
         this.credentials=new Credentials();
-        this.credentials.setTenantName("admin");// muda para o do projeto
-        this.credentials.setPasswordCredentials(new PasswordCredentials("admin", "secret")); //muda para o do projeto
+        //this.credentials.setTenantName("admin");// muda para o do projeto
+        this.credentials.setTenantName(info.getTenant());
+        //this.credentials.setPasswordCredentials(new PasswordCredentials("admin", "secret")); //muda para o do projeto
+        this.credentials.setPasswordCredentials(new PasswordCredentials(info.getUser(),info.getPassword()));
         Auth auth=new Auth(credentials);
         
         Requests requests = new Requests();

@@ -23,7 +23,7 @@ public class ServerNames {
         NamingProxy namingProxy=new NamingProxy(2017);// port
         NamingInvoker invoker = new NamingInvoker();
         
-        System.out.println(namingProxy.getHost());
+        System.out.println("IP:" +namingProxy.getHost());
         
         invoker.invoke(namingProxy);
         
