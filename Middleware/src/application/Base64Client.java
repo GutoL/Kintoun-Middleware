@@ -5,6 +5,7 @@
  */
 package application;
 
+import java.util.Random;
 import middleware.naming.NamingProxy;
 //import middleware.naming.NamingServer;
 import middleware.services.Base64OperationsProxy;
@@ -31,13 +32,19 @@ public class Base64Client {
         Base64OperationsProxy b64proxy = (Base64OperationsProxy)namingProxy.lookup("Base64");
         //b64proxy.setNamingServerIP(namingServerIP);
         
+        Random gerador = new Random();
+        
         if (b64proxy!=null){
             System.out.println("middleware.application.Base64Client.main() "+b64proxy);
             System.out.println("middleware.application.Base64Client.main() "+b64proxy.getHost()+" "+b64proxy.getPort());
-        
-            String result=b64proxy.encode("Ola mundo!");
-        
-            System.out.println(result);
+            
+            while(true){
+                
+                String result=b64proxy.encode(String.valueOf(gerador.nextDouble()));
+                System.out.println(result); 
+            
+            }
+            
         }
         
         else{
