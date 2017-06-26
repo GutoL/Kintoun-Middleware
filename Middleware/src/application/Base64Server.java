@@ -18,7 +18,7 @@ import middleware.services.Base64OperationsProxy;
 public class Base64Server {
     
     public static void main(String[]args) throws IOException, RemoteException, InterruptedException{
-        String namingServerIP="localhost";
+        /*String namingServerIP="localhost";
         
         //String myServerIP="localhost";
         
@@ -28,7 +28,7 @@ public class Base64Server {
         }
         catch(IndexOutOfBoundsException e){
             System.out.println("Base64Server.main() args[0] not found, using localhost as namingServer");
-        }
+        }*/
         
         
         Base64Invoker invoker = new Base64Invoker();
@@ -38,7 +38,7 @@ public class Base64Server {
         System.out.println("Server running");
         
         //NamingProxy namingProxy = new NamingProxy(args[0],2017);
-        NamingProxy namingProxy = new NamingProxy(namingServerIP,2017);
+        NamingProxy namingProxy = new NamingProxy(2017);
         System.out.println("middleware.application.Base64Server.main() "+base64.getHost());
         namingProxy.bind("Base64", base64);
         System.out.println("middleware.application.Base64Server.main() "+namingProxy.list());

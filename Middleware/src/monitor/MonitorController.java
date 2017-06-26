@@ -27,9 +27,9 @@ public class MonitorController {
         public MonitorController() {
         }
 
-    public MonitorController(int port,float limit) {
+    public MonitorController(int port) {
         this.port = 2425;
-        this.limitResourcesMachine = new LimitResourcesMachine(limit, limit);
+        this.limitResourcesMachine = new LimitResourcesMachine(GetInfo.getInstance().limitResourcesMachine, GetInfo.getInstance().limitResourcesMachine);
     }
         
     /**

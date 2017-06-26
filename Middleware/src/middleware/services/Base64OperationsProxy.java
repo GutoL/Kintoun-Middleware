@@ -13,6 +13,7 @@ import middleware.client.Requestor;
 import middleware.naming.NamingProxy;
 import middleware.util.Invocation;
 import middleware.util.Termination;
+import monitor.GetInfo;
 
 /**
  *
@@ -75,6 +76,8 @@ public class Base64OperationsProxy extends ClientProxy implements IBase64Operati
                 termination=requestor.invoke(invocation);
                 return (String) termination.getResult(); 
             } catch (Exception e) {
+                
+                this.namingServerIP = GetInfo.getInstance().getServerNameIP();
                 
                 NamingProxy namingProxy = new NamingProxy(this.namingServerIP,2017);
                 Base64OperationsProxy b64proxy = (Base64OperationsProxy)namingProxy.lookup("Base64");

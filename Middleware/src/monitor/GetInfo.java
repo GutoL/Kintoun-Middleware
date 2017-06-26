@@ -18,8 +18,8 @@ public class GetInfo {
     
     private static GetInfo instance = null;
     String tenant, user, password, serverNameIP, gptIP, networkName;
+    float limitResourcesMachine;
 
-    
     
     public static synchronized GetInfo getInstance(){
         if(instance == null){
@@ -55,6 +55,10 @@ public class GetInfo {
     public String getGptIP() {
         return gptIP;
     }
+
+    public float getLimitResourcesMachine() {
+        return limitResourcesMachine;
+    }
     
     
     
@@ -80,7 +84,8 @@ public class GetInfo {
               i++;
               
             }
-
+            
+            lerArq.close();
             arq.close();
             this.tenant = lines.get(0);
             this.user = lines.get(1);
@@ -88,6 +93,7 @@ public class GetInfo {
             this.networkName = lines.get(3);
             this.serverNameIP = lines.get(4);
             this.gptIP = lines.get(5);
+            this.limitResourcesMachine = Float.parseFloat(lines.get(6));
             
             
           } catch (IOException e) {

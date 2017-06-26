@@ -7,8 +7,6 @@
 package application;
 
 import monitor.MonitorController;
-import monitor.api.OpenstackCommands;
-import monitor.api.TokenRequestor;
 
 /**
  *
@@ -18,7 +16,7 @@ public class GPT {
         
     public static void main(String args[]){
         
-        MonitorController controller = new MonitorController(2424, (float) 80); // limit: 80%
+        MonitorController controller = new MonitorController(2424); // limit: 80%
         System.out.println("GPT is ready!");
         
         controller.manage();
