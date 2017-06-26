@@ -37,8 +37,8 @@ public class Base64OperationsProxy extends ClientProxy implements IBase64Operati
         
         try {
             
-            String host2 = InetAddress.getLocalHost().getHostAddress();// get local IP
-            this.host = host2;
+            //String host2 = InetAddress.getLocalHost().getHostAddress();// get local IP
+            //this.host = host2;
             this.port = port;
             
         } catch (Exception e) {
