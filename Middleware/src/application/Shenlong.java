@@ -13,7 +13,7 @@ import middleware.naming.NamingProxy;
  * Example of naming server using middleware.
  * @author guto
  */
-public class ServerNames {
+public class Shenlong {
     
     public static void main(String args[]) throws IOException, InterruptedException{
         
