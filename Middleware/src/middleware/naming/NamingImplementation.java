@@ -36,7 +36,7 @@ public class NamingImplementation implements INaming{
     @Override
     public void unbind(String serviceName, ClientProxy clientProxy) {
         NamingRepository namingRepository=new NamingRepository();
-        namingRepository.deleteRecord(serviceName,clientProxy);
+        namingRepository.disableRecord(serviceName,clientProxy);
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -61,7 +61,18 @@ public class OpenstackCommands {
         
         try {
             System.out.println("AQUI: "+serversRequest.getBody().toString());
-            String ip=serversRequest.getBody().getObject().getJSONObject("server").getJSONObject("addresses").getJSONArray(NETWORK).getJSONObject(1).getString("addr");
+            JSONArray networks=serversRequest.getBody().getObject().getJSONObject("server").getJSONObject("addresses").getJSONArray(NETWORK);
+            int index=0;
+            //System.out.println("monitor.api.OpenstackCommands.getServer() "+networks);
+                
+            for(int i=0;i<networks.length();i++){
+                //System.out.println("monitor.api.OpenstackCommands.getServer() "+networks.getJSONObject(i).getString("OS-EXT-IPS:type"));
+                if(networks.getJSONObject(i).getString("OS-EXT-IPS:type").equals("floating")){
+                     index=i;
+                }        
+                
+            }
+            String ip=serversRequest.getBody().getObject().getJSONObject("server").getJSONObject("addresses").getJSONArray(NETWORK).getJSONObject(index).getString("addr");
             String name=serversRequest.getBody().getObject().getJSONObject("server").getString("name");
             machine.setIP(ip);
             System.out.println("IP externo: "+ip);

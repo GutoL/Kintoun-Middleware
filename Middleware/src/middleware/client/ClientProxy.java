@@ -16,6 +16,7 @@ public class ClientProxy implements Serializable{
     public ClientProxy(String host, int port) {
         this.host = host;
         this.port = port;
+        this.paused=false;
     }
     
     public ClientProxy(){
@@ -24,6 +25,15 @@ public class ClientProxy implements Serializable{
     protected String host;
     protected int port;
     private int objectId;
+    private boolean paused;
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+    }
 
     public String getHost() {
         return host;

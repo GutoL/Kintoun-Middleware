@@ -36,6 +36,7 @@ public class NamingRepository {
         if (this.getRecord(serviceName)!=null){
             //se ja contem o servico avisa que ja ta inserido
             if(this.getRecords().get(serviceName).contains(namingRecord)){
+                setPausedProxy(serviceName, clientProxy, false);
                 System.out.println("middleware.naming.NamingRepository.addRecord() proxy already added");
             }
             else{
@@ -61,29 +62,44 @@ public class NamingRepository {
         if (namingRecords!=null  && !namingRecords.isEmpty()){
             Random random=new Random();
             System.out.println("middleware.naming.NamingRepository.getRecord() "+namingRecords.size());
-            int index=random.nextInt(namingRecords.size());
-            result=namingRecords.get(index).getClientProxy();
-        }
+            for(NamingRecord nr: namingRecords){
+                System.out.println("middleware.naming.NamingRepository.getRecord() "+nr.getClientProxy().getHost() +nr.getClientProxy().isPaused());
+            }
+            boolean paused=true;
+            while(paused){
+                int index=random.nextInt(namingRecords.size());
+                paused=namingRecords.get(index).getClientProxy().isPaused();
+                result=namingRecords.get(index).getClientProxy();
+            }
+            //int index=random.nextInt(namingRecords.size());
+        }   
         return result;
     }
     /**
-     * Deletes the first IP occurence of Client Proxy of each service
+     * Disables the first IP occurence of Client Proxy of each service
      * @param serviceName
      * @param clientProxy 
      */
     
-    public void deleteRecord(String serviceName, ClientProxy clientProxy){
-        int indexToBeDeleted=0;
+    public void disableRecord(String serviceName, ClientProxy clientProxy){
+        setPausedProxy(serviceName, clientProxy, true);
+    }
+    
+    private void setPausedProxy(String serviceName, ClientProxy clientProxy, boolean bool){
+        int index=0;
         for (ArrayList<NamingRecord> namingRecords : this.getRecords().values()){
             if (!namingRecords.isEmpty()){
                 for (int i=0;i<namingRecords.size();i++){
                     if (namingRecords.get(i).getClientProxy().getHost().equals(clientProxy.getHost())){
-                        indexToBeDeleted=i;
+                        index=i;
+                        namingRecords.get(i).getClientProxy().setPaused(bool);
+                        System.out.println("middleware.naming.NamingRepository.getRecord() "+namingRecords.get(i).getClientProxy().getHost() +namingRecords.get(i).getClientProxy().isPaused());
+           
                         break;
                     }
                 }
-                System.out.println("middleware.naming.NamingRepository.deleteRecord() "+namingRecords.get(indexToBeDeleted));
-                namingRecords.remove(indexToBeDeleted);
+                System.out.println("middleware.naming.NamingRepository.disableRecord() "+namingRecords.get(index));
+                //namingRecords.remove(indexToBeDisabled);
             }
 
         }
