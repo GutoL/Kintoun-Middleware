@@ -58,12 +58,11 @@ public class ProcessStatusMachine extends Thread{
            
            NamingProxy namingProxy = new NamingProxy(GetInfo.getInstance().serverNameIP,2017);// servidor de nomes
            
-           
-            //System.out.println("numero maquinas: "+machines.size());
+           //System.out.println("numero maquinas: "+machines.size());
            
             for (int i = 0; i < machines.size(); i++) {
                 
-                 //System.out.println("List: "+machines.get(i).IP);
+                System.out.println("List: "+machines.get(i).IP);
                  //System.out.println("IP server: "+this.ipServer);
                 System.out.println(machines.get(i).IP+" - "+this.ipServer);
                 if(machines.get(i).IP.equals(this.ipServer)){ // procurando o IP da máquina que tem que pausar
@@ -81,18 +80,21 @@ public class ProcessStatusMachine extends Thread{
                     ClientProxy clientToBeDeleted=new ClientProxy(ipServer,2018);
                     namingProxy.unbind("", clientToBeDeleted);
                     
-                    if(i > 0){
+                    if(i == (machines.size()-1)){
                         System.out.println("Unpause machine: "+machines.get(i-1).name);
                         openstack.unPauseInstance(machines.get(i-1).id);// unpause another machine
                         ClientProxy clientToBeUnpaused=new ClientProxy(machines.get(i-1).getIP(),2018);
-                        namingProxy.bind(machines.get(i-1).getIP(), clientToBeUnpaused);
+                        NamingProxy namingProxyReactivate = new NamingProxy(GetInfo.getInstance().serverNameIP,2017);// servidor de nomes
+                        namingProxyReactivate.reactivate("",clientToBeUnpaused);
                     
                     }
                     else{
                         System.out.println("Unpause machine: "+machines.get(i+1).name);
                         openstack.unPauseInstance(machines.get(i+1).id);// unpause another machine
-                        ClientProxy clientToBeUnpaused=new ClientProxy(machines.get(i-1).getIP(),2018);
-                        namingProxy.bind(machines.get(i-1).getIP(), clientToBeUnpaused);
+                        ClientProxy clientToBeUnpaused=new ClientProxy(machines.get(i+1).getIP(),2018);
+                        NamingProxy namingProxyReactivate = new NamingProxy(GetInfo.getInstance().serverNameIP,2017);// servidor de nomes
+           
+                        namingProxyReactivate.reactivate("",clientToBeUnpaused);
                     
                     }
                         /*try {

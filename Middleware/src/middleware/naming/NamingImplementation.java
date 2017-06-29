@@ -19,7 +19,6 @@ public class NamingImplementation implements INaming{
         NamingRepository namingRepository=new NamingRepository();
         namingRepository.addRecord(serviceName, clientProxy);
         
-        System.out.println("middleware.naming.NamingImplementation.bind() "+clientProxy.getHost());
     }
 
     @Override
@@ -36,8 +35,14 @@ public class NamingImplementation implements INaming{
     @Override
     public void unbind(String serviceName, ClientProxy clientProxy) {
         NamingRepository namingRepository=new NamingRepository();
-        namingRepository.disableRecord(serviceName,clientProxy);
+        namingRepository.disableRecord(clientProxy);
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    @Override
+    public void reactivate(String serviceName, ClientProxy clientProxy) {
+        NamingRepository namingRepository=new NamingRepository();
+        namingRepository.reactivateRecord(clientProxy);
+        
     }
     
 }

@@ -16,6 +16,7 @@ public interface INaming {
     public void bind(String serviceName, ClientProxy clientProxy);
     public void unbind(String serviceName, ClientProxy clientProxy);
     public ClientProxy lookup(String serviceName);
+    public void reactivate(String serviceName, ClientProxy clientProxy);
     public ArrayList<String> list();
     
 }

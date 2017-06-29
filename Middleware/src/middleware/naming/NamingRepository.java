@@ -35,9 +35,11 @@ public class NamingRepository {
         NamingRecord namingRecord=new NamingRecord(serviceName, clientProxy);
         if (this.getRecord(serviceName)!=null){
             //se ja contem o servico avisa que ja ta inserido
-            if(this.getRecords().get(serviceName).contains(namingRecord)){
-                setPausedProxy(serviceName, clientProxy, false);
-                System.out.println("middleware.naming.NamingRepository.addRecord() proxy already added");
+            if(this.getRecords().get(serviceName).contains(clientProxy)){
+            //System.out.println("middleware.naming.NamingRepository.addRecord() !=null");
+                //if(!setPausedProxy(serviceName, clientProxy, false)){
+                 //System.out.println("middleware.naming.NamingRepository.addRecord() not changed");
+                 System.out.println("middleware.naming.NamingRepository.addRecord() clientProxy already added");
             }
             else{
                 this.getRecords().get(serviceName).add(namingRecord);
@@ -58,15 +60,20 @@ public class NamingRepository {
     
     public ClientProxy getRecord(String serviceName){
         ClientProxy result=null;
+        boolean allPaused=true;
         ArrayList<NamingRecord> namingRecords=this.getRecords().get(serviceName);
         if (namingRecords!=null  && !namingRecords.isEmpty()){
             Random random=new Random();
             System.out.println("middleware.naming.NamingRepository.getRecord() "+namingRecords.size());
             for(NamingRecord nr: namingRecords){
                 System.out.println("middleware.naming.NamingRepository.getRecord() "+nr.getClientProxy().getHost() +nr.getClientProxy().isPaused());
+                if(!nr.getClientProxy().isPaused()){
+                    allPaused=false;
+                }
             }
+            
             boolean paused=true;
-            while(paused){
+            while(paused && !allPaused){
                 int index=random.nextInt(namingRecords.size());
                 paused=namingRecords.get(index).getClientProxy().isPaused();
                 result=namingRecords.get(index).getClientProxy();
@@ -81,20 +88,28 @@ public class NamingRepository {
      * @param clientProxy 
      */
     
-    public void disableRecord(String serviceName, ClientProxy clientProxy){
-        setPausedProxy(serviceName, clientProxy, true);
+    public void disableRecord(ClientProxy clientProxy){
+        setPausedProxy(clientProxy, true);
     }
     
-    private void setPausedProxy(String serviceName, ClientProxy clientProxy, boolean bool){
+    
+    public void reactivateRecord(ClientProxy clientProxy){
+        setPausedProxy(clientProxy, false);
+    }
+    
+    private boolean setPausedProxy(ClientProxy clientProxy, boolean bool){
         int index=0;
+        boolean changed=false;
         for (ArrayList<NamingRecord> namingRecords : this.getRecords().values()){
             if (!namingRecords.isEmpty()){
                 for (int i=0;i<namingRecords.size();i++){
                     if (namingRecords.get(i).getClientProxy().getHost().equals(clientProxy.getHost())){
                         index=i;
                         namingRecords.get(i).getClientProxy().setPaused(bool);
-                        System.out.println("middleware.naming.NamingRepository.getRecord() "+namingRecords.get(i).getClientProxy().getHost() +namingRecords.get(i).getClientProxy().isPaused());
-           
+                        System.out.println("middleware.naming.NamingRepository.SetPausedProxy() "+namingRecords.get(i).getClientProxy().getHost()+" " +namingRecords.get(i).getClientProxy().isPaused());
+                        changed=true;
+                        System.out.println("middleware.naming.NamingRepository.SetPausedProxy() changed");
+                        
                         break;
                     }
                 }
@@ -103,6 +118,7 @@ public class NamingRepository {
             }
 
         }
+        return changed;
     }
     /*private static void createInstanceIfNotExists(){
         if (instance == null){

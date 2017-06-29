@@ -47,6 +47,9 @@ public class OpenstackCommands {
         } catch (JSONException ex) {
             Logger.getLogger(OpenstackCommands.class.getName()).log(Level.SEVERE, null, ex);
         }
+        for (MachineInformation mi: serversInformation){
+            System.out.println("monitor.api.OpenstackCommands.getServers() "+mi.getIP() + " "+mi.getId());
+        }
         return serversInformation;
     }
     

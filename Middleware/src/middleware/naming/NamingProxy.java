@@ -120,6 +120,32 @@ public class NamingProxy implements INaming {
             Logger.getLogger(NamingProxy.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    @Override
+    public void reactivate(String serviceName, ClientProxy clientProxy) {
+        ArrayList<Object> parameters = new ArrayList<Object>();
+        parameters.add(serviceName);
+        parameters.add(clientProxy);
+         
+        Message message=new Message();
+        message.setMessageBody(new MessageBody(
+                new RequestHeader("", 0, true, 0, "reactivate"),
+                new RequestBody(parameters),
+                null,
+                null));
+        message.setMessageHeader(
+                new MessageHeader("MIOP", 0, true, 0, 0));
+        ClientRequestHandler crh=new ClientRequestHandler(this.host, this.port);
+        try {
+            Marshaller marshaller = new Marshaller();
+            crh.send(marshaller.marshall(message));
+            crh.receive();
+        } catch (IOException ex) {
+            Logger.getLogger(NamingProxy.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(NamingProxy.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @Override
     public void unbind(String serviceName, ClientProxy clientProxy) {
