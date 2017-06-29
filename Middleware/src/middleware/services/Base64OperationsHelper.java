@@ -5,7 +5,6 @@
  */
 package middleware.services;
 
-import java.rmi.RemoteException;
 
 /**
  *

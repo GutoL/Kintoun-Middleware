@@ -33,9 +33,8 @@ public class Credentials {
     }
     
     public String asString(){
+        
         Gson gson=new Gson();
-        //String jsonPassword=gson.toJson(this.passwordCredentials);
-        //System.out.println("monitor.api.Credentials.asString() "+jsonPassword);
         
         return null;
     }

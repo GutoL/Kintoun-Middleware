@@ -14,7 +14,7 @@ import monitor.GetInfo;
 import monitor.MachineInformation;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
+
 
 /**
  *
@@ -22,11 +22,8 @@ import org.json.JSONObject;
  */
 public class OpenstackCommands {
     public static String token;
-    //mudar caso o nome seja diferente da rede
-    //private final static String NETWORK="intranet";// Demis
-    private static String NETWORK;// Guto
-    //private final static String NETWORK= "interna";// Guto
     
+    private static String NETWORK;
     
     public ArrayList<MachineInformation> getServers(){
         Requests requests=new Requests();
@@ -34,7 +31,7 @@ public class OpenstackCommands {
         HttpResponse<JsonNode> serversRequest=requests.requestServers(token);
         
         NETWORK = GetInfo.getInstance().getNetworkName();
-        System.out.println("Rede: "+NETWORK);
+        
          
         try {
             JSONArray jsonArray= serversRequest.getBody().getObject().getJSONArray("servers");
@@ -60,16 +57,16 @@ public class OpenstackCommands {
         MachineInformation machine=new MachineInformation();
         
         NETWORK = GetInfo.getInstance().getNetworkName();
-        System.out.println("Rede: "+NETWORK);// teste
+        
         
         try {
-            System.out.println("AQUI: "+serversRequest.getBody().toString());
+            
             JSONArray networks=serversRequest.getBody().getObject().getJSONObject("server").getJSONObject("addresses").getJSONArray(NETWORK);
             int index=0;
-            //System.out.println("monitor.api.OpenstackCommands.getServer() "+networks);
+            
                 
             for(int i=0;i<networks.length();i++){
-                //System.out.println("monitor.api.OpenstackCommands.getServer() "+networks.getJSONObject(i).getString("OS-EXT-IPS:type"));
+                
                 if(networks.getJSONObject(i).getString("OS-EXT-IPS:type").equals("floating")){
                      index=i;
                 }        
@@ -78,7 +75,6 @@ public class OpenstackCommands {
             String ip=serversRequest.getBody().getObject().getJSONObject("server").getJSONObject("addresses").getJSONArray(NETWORK).getJSONObject(index).getString("addr");
             String name=serversRequest.getBody().getObject().getJSONObject("server").getString("name");
             machine.setIP(ip);
-            System.out.println("IP externo: "+ip);
             machine.setId(id);
             machine.setName(name);
             machine.setPort(1010);
@@ -98,13 +94,13 @@ public class OpenstackCommands {
         
         Requests requests=new Requests();
         HttpResponse<JsonNode> serversRequest = requests.requestOP(token, id, "pause");
-        try {
+        /*try {
             
             System.out.println(serversRequest.getBody());
             
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         
         
     }
@@ -113,13 +109,13 @@ public class OpenstackCommands {
      
         Requests requests=new Requests();
         HttpResponse<JsonNode> serversRequest = requests.requestOP(token, id, "unpause");
-        try {
+        /*try {
             
             System.out.println(serversRequest.getBody());
             
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
         
     }
     

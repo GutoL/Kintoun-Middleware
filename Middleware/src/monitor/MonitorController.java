@@ -141,14 +141,11 @@ public class MonitorController {
                 byte [] msg = srh.receive(true);
                 System.out.println("Receive!!!!");
                 String ipServer = srh.getConnectionSocket().getInetAddress().getHostAddress();
-                //System.out.println("ip server: "+ipServer);
+                
                 
                 statusMachine = (StatusMachine) marshaller.unmarshall(msg);
                 ProcessStatusMachine processStatusMachine = new ProcessStatusMachine(statusMachine, limitResourcesMachine,machines,ipServer);
                 processStatusMachine.start();
-                 // tem que ter o ip da máquina que vai pausar, o ip da máquina que vai iniciar para fazer o rebind no 
-                 // servidor de nomes, tem que ter o nome das duas máquinas também, para o devstack pausar uma e despausar
-                 // a outra (Show details of instance: openstack server show NAME)
                  
             }   
             

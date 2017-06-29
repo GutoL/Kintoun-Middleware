@@ -29,7 +29,6 @@ public class NamingInvoker {
         byte[] msgMarshalled = null;
         Message msgUnmarshalled = new Message();
         
-        //verificar se é possivel usar o objeto de services.*
         NamingImplementation namingImplementation= new NamingImplementation();
         Marshaller marshaller= new Marshaller();
         Termination ter = new Termination();
@@ -43,7 +42,7 @@ public class NamingInvoker {
             
             if(msgUnmarshalled.getMessageBody().getRequestBody().getParameters().size()>1){
                 clientProxy= (ClientProxy) msgUnmarshalled.getMessageBody().getRequestBody().getParameters().get(1);
-                //System.out.println("middleware.naming.NamingInvoker.invoke() "+clientProxy.getHost()+ " "+msgUnmarshalled.getMessageBody().getRequestBody().getParameters());
+                
             }
                     
             
@@ -68,7 +67,6 @@ public class NamingInvoker {
                         new MessageBody(null, null, new ReplyHeader("",0,0), new ReplyBody("OK")));
                     msgMarshalled=marshaller.marshall(responseMessage2);
                     
-                    //System.out.println("teste");
                     srh.send(msgMarshalled);
                     
                     break;                               
@@ -82,7 +80,6 @@ public class NamingInvoker {
                         new MessageBody(null, null, new ReplyHeader("",0,0), new ReplyBody("OK")));
                     msgMarshalled=marshaller.marshall(responseMessageUnbind);
                     
-                    //System.out.println("teste");
                     srh.send(msgMarshalled);
                     
                     break;

@@ -77,11 +77,9 @@ public class GetInfo {
             
             int i = 1;
             while (line != null) {
-              //System.out.printf("%s\n", line);
               
               if(i % 2 == 0){
-                  //System.out.println("Olhaaa: "+line);
-                  lines.add(line); 
+                lines.add(line); 
               }
               
               line = lerArq.readLine();// lê da segunda até a última linha

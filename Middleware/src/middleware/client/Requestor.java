@@ -7,8 +7,6 @@ package middleware.client;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
-import middleware.naming.NamingProxy;
-import middleware.services.Base64OperationsProxy;
 import middleware.util.Invocation;
 import middleware.util.Marshaller;
 import middleware.util.Message;
@@ -48,42 +46,38 @@ public class Requestor {
        
        int limit = 5;
        int time = 50; // era 5000
-       int attemptsGetIP , attemptsSendMessage;
+       int attemptsSendMessage;
        
         ClientRequestHandler crh=new ClientRequestHandler(invocation.getIpAddress(), invocation.getPortNumber());
         
-        //for(attemptsGetIP=0; attemptsGetIP < limit; attemptsGetIP++){            
-            
-                for(attemptsSendMessage=0; attemptsSendMessage < limit; attemptsSendMessage++) {            
+        
+        for(attemptsSendMessage=0; attemptsSendMessage < limit; attemptsSendMessage++) {            
 
-                   try {
+            try {
 
-                       //manda a mensagem de request
-                       crh.send(msgMarshalled);
-                       System.out.println("mandando para o servidor");
+                //manda a mensagem de request
+                crh.send(msgMarshalled);
+                
+                //recebe a mensagem de retorno
+                msgToBeUnmarshalled = crh.receive();
+                
+                //dá o unmarshall da mensagem
+                msgUnmarshalled = (Message)marshaller.unmarshall(msgToBeUnmarshalled);
 
-                       //recebe a mensagem de retorno
-                       msgToBeUnmarshalled = crh.receive();
-                       System.out.println("Recebi do servidor!");
-                       //dá o unmarshall da mensagem
-                       msgUnmarshalled = (Message)marshaller.unmarshall(msgToBeUnmarshalled);
+                termination.setResult(msgUnmarshalled.getMessageBody().getReplyBody().getOperationResult());
 
-                       termination.setResult(msgUnmarshalled.getMessageBody().getReplyBody().getOperationResult());
-
-                       return termination;
+                return termination;
 
 
-                   } catch (Exception e) {
+                } catch (Exception e) {
 
-                       Thread.sleep(time);
-                       time = time + 100;
-                       System.out.println("Try again..."+attemptsSendMessage);
-                   }
+                    Thread.sleep(time);
+                    time = time + 100;
+                    System.out.println("Try again..."+attemptsSendMessage);
+                   
+                }
 
-               }
-        //} 
-       
-       
+            }
        
         return null;
     }

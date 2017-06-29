@@ -28,9 +28,7 @@ public class Marshaller implements IMarshaller{
 
     @Override
     public Object unmarshall(byte[] msg) {
-     // log
-        // logger.info("start");
- 
+     
         Object message = null;
  
         ByteArrayInputStream byteStream = new ByteArrayInputStream(msg);
@@ -48,9 +46,6 @@ public class Marshaller implements IMarshaller{
         } catch (IOException e) {
             e.printStackTrace();
         }
- 
-        // log
-        // logger.info("complete");
  
         return message;
     }

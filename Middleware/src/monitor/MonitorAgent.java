@@ -30,7 +30,6 @@ public class MonitorAgent extends Thread{
     public MonitorAgent(MonitorInterface monitor, float time) {
         this.monitor = monitor;
         this.time = time;
-        //GetInfo getInfo = GetInfo.getInstance();
         this.GPTIP = GetInfo.getInstance().gptIP;
     }
     
@@ -40,10 +39,8 @@ public class MonitorAgent extends Thread{
         
         
         while (true) {            
-        
-            //System.out.println("Send status to controller...");
+            
             sendStatusMachine(this.monitor.getStatusMachine());
-            //System.out.println("Sended status to controller...");
             
             try {
                 
@@ -58,20 +55,20 @@ public class MonitorAgent extends Thread{
         
     }
     public void sendStatusMachine(StatusMachine sm){
-        //demis:10.0.0.75
+        
         crh = new ClientRequestHandler(this.GPTIP, 2425); // IP and port of  MonitorController
         Marshaller marshaller = new Marshaller();
         byte [] statusMsg;
         
         try {
         
-            //sm.nameMachine = this.nameMachine;
-            System.out.println(sm.CPUConsumption);
+            
+            System.out.println("send (%): "+sm.CPUConsumption);
             statusMsg  = marshaller.marshall(sm);
-            //System.out.println("IP: "+crh.getHost()+" porta: "+crh.getPort());
+            
             crh.send(statusMsg, true);
-            System.out.println("Sended");
-            //Thread.sleep(5000);// send every 5 seconds
+            
+            
             
         } catch (Exception e) {
           

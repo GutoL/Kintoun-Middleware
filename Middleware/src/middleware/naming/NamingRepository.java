@@ -25,20 +25,14 @@ public class NamingRepository {
         this.records = records;
     }
     
-   /* public static NamingRepository getInstance(){
-        createInstanceIfNotExists();
-        return instance;
-    }
-    */
+   
     
     public void addRecord(String serviceName, ClientProxy clientProxy){
         NamingRecord namingRecord=new NamingRecord(serviceName, clientProxy);
         if (this.getRecord(serviceName)!=null){
             //se ja contem o servico avisa que ja ta inserido
             if(this.getRecords().get(serviceName).contains(clientProxy)){
-            //System.out.println("middleware.naming.NamingRepository.addRecord() !=null");
-                //if(!setPausedProxy(serviceName, clientProxy, false)){
-                 //System.out.println("middleware.naming.NamingRepository.addRecord() not changed");
+            
                  System.out.println("middleware.naming.NamingRepository.addRecord() clientProxy already added");
             }
             else{
@@ -64,9 +58,9 @@ public class NamingRepository {
         ArrayList<NamingRecord> namingRecords=this.getRecords().get(serviceName);
         if (namingRecords!=null  && !namingRecords.isEmpty()){
             Random random=new Random();
-            System.out.println("middleware.naming.NamingRepository.getRecord() "+namingRecords.size());
+            //System.out.println("middleware.naming.NamingRepository.getRecord() "+namingRecords.size());
             for(NamingRecord nr: namingRecords){
-                System.out.println("middleware.naming.NamingRepository.getRecord() "+nr.getClientProxy().getHost() +nr.getClientProxy().isPaused());
+                //System.out.println("middleware.naming.NamingRepository.getRecord() "+nr.getClientProxy().getHost() +nr.getClientProxy().isPaused());
                 if(!nr.getClientProxy().isPaused()){
                     allPaused=false;
                 }
@@ -78,7 +72,7 @@ public class NamingRepository {
                 paused=namingRecords.get(index).getClientProxy().isPaused();
                 result=namingRecords.get(index).getClientProxy();
             }
-            //int index=random.nextInt(namingRecords.size());
+            
         }   
         return result;
     }
@@ -113,18 +107,11 @@ public class NamingRepository {
                         break;
                     }
                 }
-                System.out.println("middleware.naming.NamingRepository.disableRecord() "+namingRecords.get(index));
-                //namingRecords.remove(indexToBeDisabled);
+                
             }
 
         }
         return changed;
     }
-    /*private static void createInstanceIfNotExists(){
-        if (instance == null){
-            System.out.println("middleware.naming.NamingRepository.createInstanceIfNotExists()");
-            instance=new NamingRepository();
     
-        }
-    }*/
 }

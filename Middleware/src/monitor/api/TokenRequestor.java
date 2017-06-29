@@ -8,8 +8,6 @@ package monitor.api;
 import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import monitor.GetInfo;
@@ -26,12 +24,12 @@ public class TokenRequestor {
     
     public String request(){
         
-        System.out.println("Tenant: "+info.getTenant()+" User: "+info.getUser()+" password: "+info.getPassword());
+        //System.out.println("Tenant: "+info.getTenant()+" User: "+info.getUser()+" password: "+info.getPassword());
         
         this.credentials=new Credentials();
-        //this.credentials.setTenantName("admin");// muda para o do projeto
+       
         this.credentials.setTenantName(info.getTenant());
-        //this.credentials.setPasswordCredentials(new PasswordCredentials("admin", "secret")); //muda para o do projeto
+        
         this.credentials.setPasswordCredentials(new PasswordCredentials(info.getUser(),info.getPassword()));
         Auth auth=new Auth(credentials);
         
@@ -47,7 +45,7 @@ public class TokenRequestor {
         } catch (JSONException ex) {
             Logger.getLogger(TokenRequestor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //System.out.println("monitor.api.TokenRequestor.request() "+tokenId); 
+        
         return tokenId;
     }
     

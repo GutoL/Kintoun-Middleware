@@ -29,14 +29,14 @@ public class NamingImplementation implements INaming{
 
     @Override
     public ArrayList<String> list() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
     public void unbind(String serviceName, ClientProxy clientProxy) {
         NamingRepository namingRepository=new NamingRepository();
         namingRepository.disableRecord(clientProxy);
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
     @Override
     public void reactivate(String serviceName, ClientProxy clientProxy) {

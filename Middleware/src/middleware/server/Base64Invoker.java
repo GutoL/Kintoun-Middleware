@@ -40,12 +40,12 @@ public class Base64Invoker {
         // starting monitor agent
         ZabixFake zf = new ZabixFake();
         MonitorAgent agent = new MonitorAgent(zf, 4); // time in seconds
-        //MonitorAgent agent = new MonitorAgent(zf, 1, "VM1"); // time in seconds
+        
         agent.start();
        
         while (true){
             msgToBeUnmarshalled = srh.receive();
-            System.out.println("RECEBI!!!!!!");
+            System.out.println("Received!!!!!!");
             msgUnmarshalled = (Message) marshaller.unmarshall(msgToBeUnmarshalled);
             String word= (String) msgUnmarshalled.getMessageBody().getRequestBody().getParameters().get(0);
                     
@@ -64,7 +64,7 @@ public class Base64Invoker {
                 msgMarshalled=marshaller.marshall(responseMessage);
                 
                 Thread.sleep(100);// AQUI
-                System.out.println("Mandando de volta!!!!!");
+                
                 srh.send(msgMarshalled);
             
             
