@@ -78,16 +78,22 @@ public class ProcessStatusMachine extends Thread{
                     //porta default
                     //System.out.println("monitor.ProcessStatusMachine.run() "+ipServer);
                     
-                    ClientProxy clientToBeDeleted=new ClientProxy(ipServer,1337);
-                    //namingProxy.unbind("", clientToBeDeleted);
+                    ClientProxy clientToBeDeleted=new ClientProxy(ipServer,2018);
+                    namingProxy.unbind("", clientToBeDeleted);
                     
                     if(i > 0){
                         System.out.println("Unpause machine: "+machines.get(i-1).name);
                         openstack.unPauseInstance(machines.get(i-1).id);// unpause another machine
+                        ClientProxy clientToBeUnpaused=new ClientProxy(machines.get(i-1).getIP(),2018);
+                        namingProxy.bind(machines.get(i-1).getIP(), clientToBeUnpaused);
+                    
                     }
                     else{
                         System.out.println("Unpause machine: "+machines.get(i+1).name);
                         openstack.unPauseInstance(machines.get(i+1).id);// unpause another machine
+                        ClientProxy clientToBeUnpaused=new ClientProxy(machines.get(i-1).getIP(),2018);
+                        namingProxy.bind(machines.get(i-1).getIP(), clientToBeUnpaused);
+                    
                     }
                         /*try {
                         Thread.sleep(5000);
