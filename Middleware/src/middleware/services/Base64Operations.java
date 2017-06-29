@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package middleware.services;
-import services.base64.*;
 import java.io.UnsupportedEncodingException;
 import java.rmi.RemoteException;
 import java.rmi.server.RemoteObject;
