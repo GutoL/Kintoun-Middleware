@@ -13,7 +13,7 @@ import middleware.naming.NamingProxy;
 import monitor.api.OpenstackCommands;
 
 /**
- *
+ * Class that processing status of instances and decide whether to pause instance or not.
  * @author guto
  */
 public class ProcessStatusMachine extends Thread{

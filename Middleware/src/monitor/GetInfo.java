@@ -21,7 +21,7 @@ public class GetInfo {
     float limitResourcesMachine;
 
     /**
-     * Singleton project pattern 
+     * Singleton project pattern.When invoked, the informations in configuration file are load in this class.
      * @return 
      */
     public static synchronized GetInfo getInstance(){
@@ -35,44 +35,74 @@ public class GetInfo {
     }
 
     /**
-     * return Server names IP
+     * Return Server names IP.
      * @return 
      */
     public String getServerNameIP() {
         return serverNameIP;
     }
 
-
+    /**
+     * Return password used in OpenStack.
+     * @return 
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Return tanant name used in OpenStack evironment.
+     * @return 
+     */
     public String getTenant() {
         return tenant;
     }
 
+    /**
+     * Return user names of OpenStack.
+     * @return 
+     */
     public String getUser() {
         return user;
     }
 
+    /**
+     * Return network name where instances are connected.
+     * @return 
+     */
     public String getNetworkName() {
         return networkName;
     }
 
+    /**
+     * Return IP of instances manager.
+     * @return 
+     */
     public String getGptIP() {
         return gptIP;
     }
 
+    /**
+     * Return resource limit of instances (e.g. CPU consumption).
+     * @return 
+     */
     public float getLimitResourcesMachine() {
         return limitResourcesMachine;
     }
 
+   /**
+    * Return IP of machine where OpenStack was installed.
+    * @return 
+    */
     public String getOpenStackIP() {
         return OpenStackIP;
     }
     
     
-    
+    /**
+     * Method that read configuration file.
+     * @param path 
+     */
     public void readInfo(String path){
         ArrayList<String> lines=new ArrayList<>();
         

@@ -8,7 +8,7 @@ package monitor;
 import java.util.Random;
 
 /**
- *
+ * Class that simulate monitor in instance.
  * @author guto
  */
 public class ZabixFake implements MonitorInterface {
@@ -47,6 +47,10 @@ public class ZabixFake implements MonitorInterface {
         }
     }
 
+    /**
+     * Method that return status of machine (class with CPU and memory consuption).
+     * @return status of machine
+     */
     @Override
     public StatusMachine getStatusMachine() {
         if(CPUConsumption < 100 && memoryConsumption < 100){

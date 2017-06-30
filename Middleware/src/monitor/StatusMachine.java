@@ -8,7 +8,7 @@ package monitor;
 import java.io.Serializable;
 
 /**
- *
+ * Class that contains status of instance consuption
  * @author guto
  */
 public class StatusMachine implements Serializable {

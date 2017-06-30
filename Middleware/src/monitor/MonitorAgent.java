@@ -11,7 +11,7 @@ import middleware.client.ClientRequestHandler;
 import middleware.util.Marshaller;
 
 /**
- *
+ * Monitor that running in instance and send current stat of machine to manager.
  * @author guto
  */
 public class MonitorAgent extends Thread{
@@ -54,6 +54,10 @@ public class MonitorAgent extends Thread{
         
         
     }
+    
+    /**
+     * Method that send information to manager.
+     */
     public void sendStatusMachine(StatusMachine sm){
         
         crh = new ClientRequestHandler(this.GPTIP, 2425); // IP and port of  MonitorController

@@ -6,7 +6,7 @@
 package monitor;
 
 /**
- *
+ * Class that contains current state of machines. This state is sended to manager.
  * @author guto
  */
 public class MachineInformation {

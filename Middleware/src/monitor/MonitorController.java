@@ -14,7 +14,7 @@ import monitor.api.OpenstackCommands;
 import monitor.api.TokenRequestor;
 
 /**
- *
+ * Class that manage and interact with instances on cloud.
  * @author guto
  */
 public class MonitorController {
@@ -33,7 +33,7 @@ public class MonitorController {
     }
         
     /**
-     * This method will discover machines running in Openstack
+     * (not used)This method will discover machines running in Openstack
      */
     public void getListMachines(){
         
@@ -116,7 +116,9 @@ public class MonitorController {
     
     
     
-    
+    /**
+     * Method that receives status of instance and start processing.
+     */
     public void manage(){
         
         ServerRequestHandler srh = new ServerRequestHandler(this.port);

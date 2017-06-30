@@ -6,7 +6,7 @@
 package monitor;
 
 /**
- *
+ * Class that contains instance limits.
  * @author guto
  */
 public class LimitResourcesMachine {
