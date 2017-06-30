@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
+ * class that contains informations passed to middleware
  * @author guto
  */
 public class GetInfo {
@@ -20,7 +20,10 @@ public class GetInfo {
     String tenant, user, password, serverNameIP, gptIP, networkName, OpenStackIP;
     float limitResourcesMachine;
 
-    
+    /**
+     * Singleton project pattern 
+     * @return 
+     */
     public static synchronized GetInfo getInstance(){
         if(instance == null){
             instance = new GetInfo();
@@ -31,6 +34,10 @@ public class GetInfo {
         
     }
 
+    /**
+     * return Server names IP
+     * @return 
+     */
     public String getServerNameIP() {
         return serverNameIP;
     }
