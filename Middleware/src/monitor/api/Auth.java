@@ -6,7 +6,7 @@
 package monitor.api;
 
 /**
- *
+ * Class that contais credentials about OpenStack evironment.
  * @author gprt
  */
 public class Auth {

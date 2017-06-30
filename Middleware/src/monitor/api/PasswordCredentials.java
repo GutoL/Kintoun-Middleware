@@ -6,7 +6,7 @@
 package monitor.api;
 
 /**
- *
+ * Class that contains security informations of OpenStack
  * @author gprt
  */
 public class PasswordCredentials {

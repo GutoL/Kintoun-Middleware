@@ -17,7 +17,7 @@ import org.json.JSONException;
 
 
 /**
- *
+ * Class that interacting with OpenStack.
  * @author gprt
  */
 public class OpenstackCommands {
@@ -25,6 +25,10 @@ public class OpenstackCommands {
     
     private static String NETWORK;
     
+    /**
+     * Return informations about instances that running in cloud.
+     * @return list of instance informations
+     */
     public ArrayList<MachineInformation> getServers(){
         Requests requests=new Requests();
         ArrayList<MachineInformation> serversInformation=new ArrayList<>();

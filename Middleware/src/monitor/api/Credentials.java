@@ -8,7 +8,7 @@ package monitor.api;
 import com.google.gson.Gson;
 
 /**
- *
+ * Class that contains informantions about OpenStack security.
  * @author gprt
  */
 public class Credentials {

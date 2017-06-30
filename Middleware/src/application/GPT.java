@@ -9,7 +9,7 @@ package application;
 import monitor.MonitorController;
 
 /**
- *
+ * Example of manager using middleware.
  * @author guto
  */
 public class GPT {

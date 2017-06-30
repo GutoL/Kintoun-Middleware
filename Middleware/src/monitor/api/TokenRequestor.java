@@ -14,14 +14,18 @@ import monitor.GetInfo;
 import org.json.JSONException;
 
 /**
- *
+ * Class that requests token to access OpenStack.
  * @author gprt
  */
 public class TokenRequestor {
-    private String token;
+    //private String token;
     private Credentials credentials;
     private GetInfo info = GetInfo.getInstance();
     
+    /**
+     * Method that requests token to OpenStack.
+     * @return string with token
+     */
     public String request(){
         
         //System.out.println("Tenant: "+info.getTenant()+" User: "+info.getUser()+" password: "+info.getPassword());

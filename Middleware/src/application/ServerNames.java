@@ -10,7 +10,7 @@ import middleware.naming.NamingInvoker;
 import middleware.naming.NamingProxy;
 
 /**
- *
+ * Example of naming server using middleware.
  * @author guto
  */
 public class ServerNames {

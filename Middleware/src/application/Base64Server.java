@@ -12,7 +12,7 @@ import middleware.server.Base64Invoker;
 import middleware.services.Base64OperationsProxy;
 
 /**
- *
+ * Example of server using middleware (application base 64 convert).
  * @author gprt
  */
 public class Base64Server {

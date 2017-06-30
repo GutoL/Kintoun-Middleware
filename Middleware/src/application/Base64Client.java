@@ -10,7 +10,7 @@ import middleware.naming.NamingProxy;
 import middleware.services.Base64OperationsProxy;
 
 /**
- *
+ * Example of client using middleware.
  * @author gprt
  */
 public class Base64Client {

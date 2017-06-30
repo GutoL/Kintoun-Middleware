@@ -8,7 +8,7 @@ package monitor.api;
 import monitor.GetInfo;
 
 /**
- *
+ * Class that build URL OpenStack to requisitions.
  * @author gprt
  */
 public class URL {
