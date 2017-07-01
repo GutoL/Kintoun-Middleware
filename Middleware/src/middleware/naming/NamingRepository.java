@@ -11,8 +11,9 @@ import java.util.Random;
 import middleware.client.ClientProxy;
 
 /**
- *
- * @author gprt
+ * Register/Unregister a NamingRecord of a remote object
+ * 
+ * @author Demis
  */
 public class NamingRepository {
     public static HashMap<String,ArrayList<NamingRecord>> records = new HashMap<String,ArrayList<NamingRecord>>();
@@ -25,42 +26,42 @@ public class NamingRepository {
         this.records = records;
     }
     
-   
+   /**
+    * Adds a record in NamingRepository
+    * @param serviceName the name of service to be added
+    * @param clientProxy the location of object
+    */
     
     public void addRecord(String serviceName, ClientProxy clientProxy){
         NamingRecord namingRecord=new NamingRecord(serviceName, clientProxy);
         if (this.getRecord(serviceName)!=null){
-            //se ja contem o servico avisa que ja ta inserido
-            if(this.getRecords().get(serviceName).contains(clientProxy)){
             
-                 System.out.println("middleware.naming.NamingRepository.addRecord() clientProxy already added");
-            }
-            else{
+            if(!this.getRecords().get(serviceName).contains(namingRecord)){
+            
                 this.getRecords().get(serviceName).add(namingRecord);
             }
         }
-        //se o servico nao existe, cria-o
+        //If the service does not exist, creates it
         else{
             this.getRecords().put(serviceName, new ArrayList<NamingRecord>());
             this.getRecords().get(serviceName).add(namingRecord);
         }
-        
-        for (NamingRecord records : this.getRecords().get(serviceName)){
-            System.out.println("middleware.naming.NamingRepository.addRecord() "+records.getServiceName()+" "+records.getClientProxy());
-        
-        }
-        
+               
     }
-    
+    /**
+     * get the record of a serviceName related to a remote object
+     * returns only if the variable paused of the ClientProxy is false
+     * if two or more clientProxies are able to be choose, returns randomly one of them
+     * @param serviceName the name of service 
+     * @return clientProxy that offers the service
+     */
     public ClientProxy getRecord(String serviceName){
         ClientProxy result=null;
         boolean allPaused=true;
         ArrayList<NamingRecord> namingRecords=this.getRecords().get(serviceName);
         if (namingRecords!=null  && !namingRecords.isEmpty()){
             Random random=new Random();
-            //System.out.println("middleware.naming.NamingRepository.getRecord() "+namingRecords.size());
             for(NamingRecord nr: namingRecords){
-                //System.out.println("middleware.naming.NamingRepository.getRecord() "+nr.getClientProxy().getHost() +nr.getClientProxy().isPaused());
                 if(!nr.getClientProxy().isPaused()){
                     allPaused=false;
                 }
@@ -76,20 +77,33 @@ public class NamingRepository {
         }   
         return result;
     }
+    
     /**
      * Disables the first IP occurence of Client Proxy of each service
-     * @param serviceName
-     * @param clientProxy 
+     * put paused=true
+     * @param clientProxy The client proxy to be deactivated
      */
     
     public void disableRecord(ClientProxy clientProxy){
         setPausedProxy(clientProxy, true);
     }
     
+    /**
+     * reactivates a clientProxy, put paused=false
+     * @param clientProxy The client proxy to be reactivate 
+     */
     
     public void reactivateRecord(ClientProxy clientProxy){
         setPausedProxy(clientProxy, false);
     }
+    
+    /**
+     * Changes the paused variable of a Client proxy to false or true
+     * 
+     * @param clientProxy client proxy to be changed
+     * @param bool value of paused (true or false)
+     * @return changed (if clientProxy was changed or not)
+     */
     
     private boolean setPausedProxy(ClientProxy clientProxy, boolean bool){
         int index=0;

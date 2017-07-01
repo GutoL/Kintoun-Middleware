@@ -9,8 +9,15 @@ import java.util.ArrayList;
 import middleware.client.ClientProxy;
 
 /**
- *
- * @author gprt
+ * Interface that defines the methods to be implemented by Naming Proxy and Naming Implementation
+ * Comprises five methods:
+ * bind: register a remote object
+ * unbind: deactivate a remote object
+ * lookup: Request the location of a remote object
+ * reactivate: used to unpause instances and reactivate remote object
+ * list: list the remote objects saved
+ * 
+ * @author Demis
  */
 public interface INaming {
     public void bind(String serviceName, ClientProxy clientProxy);

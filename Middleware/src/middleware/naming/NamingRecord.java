@@ -8,8 +8,11 @@ package middleware.naming;
 import middleware.client.ClientProxy;
 
 /**
- *
- * @author gprt
+ * Structure that register a remote object in NamingRepository
+ * 
+ * serviceName: Name of remote object
+ * ClientProxy: location of remote object
+ * @author Demis
  */
 public class NamingRecord {
     private String serviceName;

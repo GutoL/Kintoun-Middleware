@@ -11,8 +11,19 @@ import java.io.IOException;
 import java.net.Socket;
 
 /**
- *
- * @author Demis e Lucas
+ * Client Request Handler
+ * Sends requisitions to another host
+ * Only use bytes in its messages
+ * 
+ * host: Address of host that will receive the message
+ * port: Destination port 
+ * sentMessageSize: Length of sent message (bytes) to create the buffer when sent
+ * receiveMessageSize: Length of received message (bytes) to create the buffer when received
+ * clientSocket: Socket used to sent/receive messages
+ * outToServer: Stream used to send messages to destination (only bytes)
+ * inFromServer: Stream used to receive messages from destination (only bytes)
+ * 
+ * @author Demis
  */
 public class ClientRequestHandler {
     private String host;
@@ -46,13 +57,20 @@ public class ClientRequestHandler {
         this.port = port;
     }
     
+    /**
+     * send message to a host
+     * @param msg bytes
+     * @throws IOException
+     * @throws InterruptedException 
+     */
+    
   public void send(byte[] msg) throws IOException, InterruptedException{
-      //inicializando sockets e streams
+      //initialize sockets and streams
       clientSocket = new Socket(this.host,this.port);
       outToServer = new DataOutputStream(clientSocket.getOutputStream());
       inFromServer = new DataInputStream(clientSocket.getInputStream());
       
-      //construindo e enviando a mensagem
+      //building and sending the message
       sentMessageSize = msg.length;
       outToServer.writeInt(sentMessageSize);
       outToServer.write(msg,0,sentMessageSize);
@@ -61,7 +79,11 @@ public class ClientRequestHandler {
  
   }
   
-  
+  /**
+   * receives a reply message
+   * @return msg (bytes)
+   * @throws IOException 
+   */
   public byte[] receive() throws IOException{
       byte[] msg = null;
       
@@ -69,7 +91,6 @@ public class ClientRequestHandler {
       msg = new byte[receiveMessageSize];
       inFromServer.read(msg,0,receiveMessageSize);
       
-      //verificar se dá problemas posteriores
       clientSocket.close();
       outToServer.close();
       inFromServer.close();
@@ -80,12 +101,10 @@ public class ClientRequestHandler {
   
    
   public void send(byte[] msg, boolean closeSocket) throws IOException, InterruptedException{
-      //inicializando sockets e streams
       clientSocket = new Socket(this.host,this.port);
       outToServer = new DataOutputStream(clientSocket.getOutputStream());
       inFromServer = new DataInputStream(clientSocket.getInputStream());
       
-      //construindo e enviando a mensagem
       sentMessageSize = msg.length;
       outToServer.writeInt(sentMessageSize);
       outToServer.write(msg,0,sentMessageSize);

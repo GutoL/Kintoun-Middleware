@@ -17,11 +17,24 @@ import middleware.util.ReplyHeader;
 import middleware.util.Termination;
 
 /**
- *
- * @author gprt
+ * Invoke the methods implemented by NamingImplementation
+ * Methods: bind, lookup, unbind, reactivate
+ * @author Demis
  */
 public class NamingInvoker {
     
+    /**
+     * Invoke a method implemented by Naming
+     * Methods: bind, lookup, unbind, reactivate
+     * bind: register a service
+     * lookup: seek for a service
+     * unbind: unbind a service
+     * reactivate: deactivate a service
+     * 
+     * @param namingProxy
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     public void invoke(NamingProxy namingProxy) throws IOException, InterruptedException{
         ServerRequestHandler srh = new ServerRequestHandler(namingProxy.getPort());
         

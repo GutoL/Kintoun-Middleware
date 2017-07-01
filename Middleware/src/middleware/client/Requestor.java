@@ -17,10 +17,21 @@ import middleware.util.RequestHeader;
 import middleware.util.Termination;
 
 /**
- *
- * @author Demis e Lucas
+ * Requestor
+ * Prepare the message and send to host in order to invoke the remote object 
+ * Try request the object 5 fives if do not receive a response in a defined time
+ * @author Demis
  */
 public class Requestor {
+    /**
+     * invoke a remote object
+     * if do not have a response, try five times and request a new ClientProxy to Naming Server
+     * @param invocation
+     * @return
+     * @throws UnknownHostException
+     * @throws IOException
+     * @throws Throwable 
+     */
     public Termination invoke(Invocation invocation) throws UnknownHostException, IOException, Throwable{
         
         
@@ -33,19 +44,19 @@ public class Requestor {
         Message msgToBeMarshalled=new Message();
         
        
-        //cria o request, encapsulando-o numa mensagem
+        //creates the request and encapsulates it in a message
         RequestHeader requestHeader= new RequestHeader("",0,true,0,invocation.getOperationName());
         RequestBody requestBody = new RequestBody(invocation.getParameters());
         MessageHeader messageHeader = new MessageHeader("MIOP",0,false,0,0);
         MessageBody messageBody = new MessageBody(requestHeader,requestBody,null,null);
-        //recupera a mensagem a ser enviada para a camada inferior
+        //recover the message to be sent to bottom layer
         msgToBeMarshalled = new Message(messageHeader, messageBody);
         
-       //faz o marshall da mensagem
+       //make the marshall
        msgMarshalled = marshaller.marshall(msgToBeMarshalled);
        
        int limit = 5;
-       int time = 50; // era 5000
+       int time = 50;
        int attemptsSendMessage;
        
         ClientRequestHandler crh=new ClientRequestHandler(invocation.getIpAddress(), invocation.getPortNumber());
@@ -55,13 +66,13 @@ public class Requestor {
 
             try {
 
-                //manda a mensagem de request
+                //send request message
                 crh.send(msgMarshalled);
                 
-                //recebe a mensagem de retorno
+                //receive the response message
                 msgToBeUnmarshalled = crh.receive();
                 
-                //dá o unmarshall da mensagem
+                //unmarshall message
                 msgUnmarshalled = (Message)marshaller.unmarshall(msgToBeUnmarshalled);
 
                 termination.setResult(msgUnmarshalled.getMessageBody().getReplyBody().getOperationResult());

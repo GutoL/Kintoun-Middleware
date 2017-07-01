@@ -9,8 +9,16 @@ import java.util.ArrayList;
 import middleware.client.ClientProxy;
 
 /**
- *
- * @author gprt
+ * Implementation of methods related to Naming Server
+ * Implements INaming
+ * These methods request NamingRepository to put/get a service
+ * 
+ * bind: add a NamingRecord of a remote object
+ * lookup: get a NamingRecord of a remote object
+ * list: do not implemented
+ * unbind: deactivate a NamingRecord (put paused=true)
+ * reactivate: unpause and activate a NamingRecord (put paused=false)
+ * @author Demis
  */
 public class NamingImplementation implements INaming{
 

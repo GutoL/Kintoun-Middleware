@@ -22,11 +22,11 @@ import middleware.util.RequestHeader;
 import monitor.GetInfo;
 
 /**
- *
- * @author gprt
+ * Instance that invoke the NamingServer methods
+ * Similar to ClientProxy
+ * @author Demis
  */
 public class NamingProxy implements INaming {
-    private NamingRepository namingRepository;
     private String host;
     private int port;
 
@@ -53,14 +53,17 @@ public class NamingProxy implements INaming {
         
     }
     
-    public NamingProxy(int port){
-        //info.readInfo("info.cfg");
-            
-        this.host = GetInfo.getInstance().getServerNameIP(); //"10.0.2.15"; // AQUI
+    public NamingProxy(int port){            
+        this.host = GetInfo.getInstance().getServerNameIP();
         this.port = port;
         
     }
 
+    /**
+     * lookups for a serviceName
+     * @param serviceName
+     * @return client Proxy of the service Name
+     */
     @Override
     public ClientProxy lookup(String serviceName) {
         ArrayList<Object> parameters = new ArrayList<Object>();
@@ -89,12 +92,22 @@ public class NamingProxy implements INaming {
         return null;
     }
 
+    /**
+     * list the serviceNames registered in NamingRepository
+     * do not implemented
+     * @return 
+     */
     @Override
     public ArrayList<String> list() {
         ArrayList<String> serviceNames = new ArrayList<String>();
         return serviceNames;
     }
 
+    /**
+     * register a serviceName in NamingRepository
+     * @param serviceName
+     * @param clientProxy 
+     */
     @Override
     public void bind(String serviceName, ClientProxy clientProxy) {
         ArrayList<Object> parameters = new ArrayList<Object>();
@@ -121,6 +134,11 @@ public class NamingProxy implements INaming {
         }
     }
     
+    /**
+     * reactivate a serviceName
+     * @param serviceName
+     * @param clientProxy 
+     */
     @Override
     public void reactivate(String serviceName, ClientProxy clientProxy) {
         ArrayList<Object> parameters = new ArrayList<Object>();
@@ -147,6 +165,11 @@ public class NamingProxy implements INaming {
         }
     }
 
+    /**
+     * unbind a service
+     * @param serviceName
+     * @param clientProxy 
+     */
     @Override
     public void unbind(String serviceName, ClientProxy clientProxy) {
         ArrayList<Object> parameters = new ArrayList<Object>();

@@ -8,8 +8,17 @@ package middleware.client;
 import java.io.Serializable;
 
 /**
- *
- * @author Demis e Lucas
+ * Client Proxy  
+ * Provides transparency location of remote object
+ * Implements serializable in order to be marshalled/unmarshalled
+ * 
+ * host: Address of remote object
+ * port: Port in which service is running
+ * paused: indicates if the service can be acessed. Paused is false 
+ * by default, allowing the remote object at the host to be accessed. 
+ * True denotes that the object becomes unaccessible due to a pause 
+ * in the instance.
+ * @author Demis
  */
 public class ClientProxy implements Serializable{
 
