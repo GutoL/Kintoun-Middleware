@@ -6,8 +6,8 @@
 package middleware.services;
 
 /**
- *
- * @author Demis e Lucas
+ * Interface that implements base64 operations
+ * @author Demis
  */
 public interface IBase64Operations{
     public String encode(String s) throws Throwable;

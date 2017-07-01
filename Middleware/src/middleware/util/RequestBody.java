@@ -9,8 +9,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *
- * @author Demis e Lucas
+ * Body of request message
+ * 
+ * parameters: parameters of method to be invoked
+ * @author Demis
  */
 public class RequestBody implements Serializable{
     private ArrayList<Object> parameters;

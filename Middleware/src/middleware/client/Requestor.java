@@ -25,7 +25,7 @@ import middleware.util.Termination;
 public class Requestor {
     /**
      * invoke a remote object
-     * if do not have a response, try five times and request a new ClientProxy to Naming Server
+     * if do not have a response, try five times
      * @param invocation
      * @return
      * @throws UnknownHostException

@@ -8,8 +8,10 @@ package middleware.util;
 import java.io.IOException;
 
 /**
- *
- * @author Demis e Lucas
+ * Interface that contains the methods used by Marshaller
+ * 
+ * marshall and unmarshall
+ * @author Demis
  */
 public interface IMarshaller {
     public byte[] marshall(Object msg) throws IOException, InterruptedException;

@@ -12,11 +12,30 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- *
- * @author Demis e Lucas
+ * Manage the messages received by server and replies them
+ * 
+ * portNumber: port in which the server will run
+ * welcomeSocket: socket that server will recieve requisitions
+ * connectionSocket: socket that handles the communication with client
+ * sentMessageSize: lenght of message sent
+ * receivedMessageSize: length of message received
+ * outToClient: stream that send the message to client
+ * inFromClient: stream that receive message from client
+ * 
+ * @author Demis
  */
 public class ServerRequestHandler {
 
+    private int portNumber;
+    private ServerSocket welcomeSocket;
+    private Socket connectionSocket;
+    
+    private int sentMessageSize;
+    private int receivedMessageSize;
+    private DataOutputStream outToClient;
+    private DataInputStream inFromClient;
+    
+    
     public int getPortNumber() {
         return portNumber;
     }
@@ -72,21 +91,17 @@ public class ServerRequestHandler {
     public void setInFromClient(DataInputStream inFromClient) {
         this.inFromClient = inFromClient;
     }
-    private int portNumber;
-    private ServerSocket welcomeSocket;
-    private Socket connectionSocket;
-    
-    private int sentMessageSize;
-    private int receivedMessageSize;
-    private DataOutputStream outToClient;
-    private DataInputStream inFromClient;
     
     public ServerRequestHandler(int port){
         this.portNumber = port;
     }
  
+    /**
+     * receive message from client
+     * @return
+     * @throws IOException 
+     */
     public byte[] receive() throws IOException{
-        //verificar se é possível iniciar o servidor no construtor
         byte[] receivedMessage = null;
         welcomeSocket = new ServerSocket(portNumber);
         connectionSocket = welcomeSocket.accept();
@@ -100,6 +115,11 @@ public class ServerRequestHandler {
         return receivedMessage;
     }
     
+    /**
+     * send message to client
+     * @param msg
+     * @throws IOException 
+     */
     public void send(byte[] msg) throws IOException{
         sentMessageSize = msg.length;
         outToClient.writeInt(sentMessageSize);
@@ -114,9 +134,13 @@ public class ServerRequestHandler {
         
     }
     
-    
+    /**
+     * receive the message and closes the socket at end of the process
+     * @param closeSocket
+     * @return
+     * @throws IOException 
+     */
     public byte[] receive(boolean closeSocket) throws IOException{
-        //verificar se é possível iniciar o servidor no construtor
         byte[] receivedMessage = null;
         welcomeSocket = new ServerSocket(portNumber);
         connectionSocket = welcomeSocket.accept();
@@ -138,9 +162,6 @@ public class ServerRequestHandler {
        
         return receivedMessage;
         
-    }
-    
-    
-    
+    } 
     
 }

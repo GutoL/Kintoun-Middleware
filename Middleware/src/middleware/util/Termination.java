@@ -6,8 +6,10 @@
 package middleware.util;
 
 /**
- *
- * @author Demis e Lucas
+ * puts/get the result of operation
+ * 
+ * result: result of operation
+ * @author Demis 
  */
 public class Termination {
     private Object result;

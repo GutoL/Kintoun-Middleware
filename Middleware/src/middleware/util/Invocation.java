@@ -8,8 +8,15 @@ package middleware.util;
 import java.util.ArrayList;
 
 /**
+ * gather the parameters to invoke the remote object
  *
- * @author Demis e Lucas
+ * object id: id of the remote object
+ * ipAddress: address of host of remote object
+ * portNumber: port of remote object
+ * operationName: name of method to be invoked in remote object
+ * parameters: parameters of method to be invoked
+ * 
+ * @author Demis
  */
 public class Invocation {
     private int objectId;

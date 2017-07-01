@@ -8,8 +8,15 @@ package middleware.util;
 import java.io.Serializable;
 
 /**
- *
- * @author Demis e Lucas
+ * Header of message
+ * 
+ * magic: hash/tag of operation
+ * version: version of protocol
+ * byteOrder: indicates the number of first byte, if the message is fragmented
+ * messageType: id of message
+ * messageSize: lenght of message
+ * 
+ * @author Demis
  */
 public class MessageHeader implements Serializable{
     private String magic;

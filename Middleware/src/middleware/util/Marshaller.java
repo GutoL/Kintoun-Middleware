@@ -12,11 +12,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
- *
- * @author Demis e Lucas
+ *transform objects to bytes (marshalling) and bytes to objects (unmarshalling)
+ * 
+ * @author Demis
  */
 public class Marshaller implements IMarshaller{
 
+    /**
+     * transform object to bytes
+     * @param msg an objecto to be marshalled
+     * @return bytes
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     @Override
     public byte[] marshall(Object msg) throws IOException, InterruptedException {
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
@@ -26,6 +34,11 @@ public class Marshaller implements IMarshaller{
         return byteStream.toByteArray();
     }
 
+    /**
+     * transform bytes to objects
+     * @param msg bytes to be unmarshalled
+     * @return object unmarshalled
+     */
     @Override
     public Object unmarshall(byte[] msg) {
      

@@ -8,8 +8,12 @@ package middleware.util;
 import java.io.Serializable;
 
 /**
- *
- * @author Demis e Lucas
+ * Body of message sent
+ * requestHeader: header of request (if a reply message, this field is null)
+ * requestBody: body of request (if a reply message, this field is null)
+ * replyHeader: header of reply (if a request message, this field is null)
+ * replyBody: body of reply message (if a request message, this field is null)
+ * @author Demis
  */
 public class MessageBody implements Serializable{
     private RequestHeader requestHeader;

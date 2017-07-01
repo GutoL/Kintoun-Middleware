@@ -8,8 +8,14 @@ package middleware.util;
 import java.io.Serializable;
 
 /**
- *
- * @author Demis e Lucas
+ * Header of request
+ * 
+ * context: context of message (ex: if encrypted)
+ * requestId: id of request
+ * responseExpected: true or false
+ * objectKey: id of object
+ * operation: method to be invoked
+ * @author Demis 
  */
 public class RequestHeader implements Serializable{
     private String context;

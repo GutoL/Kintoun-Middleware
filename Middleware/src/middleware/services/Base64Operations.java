@@ -9,14 +9,21 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Base64;
 
 /**
- *
- * @author Demis e Lucas
+ * base64 operations
+ * encode and decode
+ * Implements IBase64Operations
+ * @author Demis
  */
 public class Base64Operations extends UnicastRemoteObject implements IBase64Operations{
     public Base64Operations()throws RemoteException{
         super();
     }
     
+    /**
+     * encodes a string
+     * @param s
+     * @return 
+     */
     @Override
     public String encode(String s){
         byte[] encodedBytes = Base64.getEncoder().encode(s.getBytes());
@@ -24,6 +31,11 @@ public class Base64Operations extends UnicastRemoteObject implements IBase64Oper
         return response;
     }
     
+    /**
+     * decodes a string
+     * @param s
+     * @return 
+     */
     @Override
     public String decode(String s){
         byte[] decodedBytes = Base64.getDecoder().decode(s.getBytes());

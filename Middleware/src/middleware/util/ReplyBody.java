@@ -8,8 +8,9 @@ package middleware.util;
 import java.io.Serializable;
 
 /**
- *
- * @author Demis e Lucas
+ * value of return of a reply message
+ * operationResult: result of reply
+ * @author Demis
  */
 public class ReplyBody implements Serializable{
     private Object operationResult;

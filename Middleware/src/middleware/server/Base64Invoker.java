@@ -20,19 +20,26 @@ import monitor.MonitorAgent;
 import monitor.ZabixFake;
 
 /**
- *
- * @author gprt
+ * Invoke the Base64 object
+ * @author Demis
  */
 public class Base64Invoker {
     
-    
+    /**
+     * invoke the methods implemented by Base64 object
+     * has a Monitor Agent that collects the server info and sends to Monitor Server
+     * methods: encode, decode
+     * @param clientProxy
+     * @throws RemoteException
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     public void invoke(ClientProxy clientProxy) throws RemoteException, IOException, InterruptedException{
         ServerRequestHandler srh = new ServerRequestHandler(clientProxy.getPort());
         byte[] msgToBeUnmarshalled = null;
         byte[] msgMarshalled = null;
         Message msgUnmarshalled = new Message();
         
-        //verificar se é possivel usar o objeto de services.*
         Base64Operations b64Obj= new Base64Operations();
         Marshaller marshaller= new Marshaller();
         Termination ter = new Termination();

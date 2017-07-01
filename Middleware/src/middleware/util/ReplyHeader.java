@@ -8,8 +8,12 @@ package middleware.util;
 import java.io.Serializable;
 
 /**
- *
- * @author Demis e Lucas
+ * header of reply message
+ * 
+ * serviceContext: tag of message (ex: if encrypted)
+ * requestId: id of request
+ * replyStatus: status of reply, associated if reply is OK or not
+ * @author Demis
  */
 public class ReplyHeader implements Serializable{
 

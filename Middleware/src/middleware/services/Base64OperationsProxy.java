@@ -15,8 +15,8 @@ import middleware.util.Termination;
 import monitor.GetInfo;
 
 /**
- *
- * @author Demis e Lucas
+ * Proxy for base64 operations
+ * @author Demis
  */
 public class Base64OperationsProxy extends ClientProxy implements IBase64Operations, Serializable{
 
@@ -41,6 +41,13 @@ public class Base64OperationsProxy extends ClientProxy implements IBase64Operati
     public Base64OperationsProxy(){
         
     }
+    /**
+     * invokes the encode method of the Base64Operations
+     * if do not receive a response after three tries, request a new clientProxy
+     * @param s
+     * @return
+     * @throws Throwable 
+     */
     @Override
     public String encode(String s) throws Throwable {
         

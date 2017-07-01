@@ -8,8 +8,10 @@ package middleware.util;
 import java.io.Serializable;
 
 /**
- *
- * @author Demis e Lucas
+ * Message to be send between client and server
+ * messageHeader: header of message (message type, order, etc)
+ * messageBody: body of message (parameters, method to be invoked, etc)
+ * @author Demis
  */
 public class Message implements Serializable{
     private MessageHeader messageHeader;

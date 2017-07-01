@@ -7,10 +7,16 @@ package middleware.services;
 
 
 /**
- *
- * @author Demis e Lucas
+ * helper to base 64 operations helper
+ * @author Demis
  */
 public class Base64OperationsHelper {
+    /**
+     * reads the message. If contains D, means decode. Else, encode.
+     * @param message
+     * @return
+     * @throws Throwable 
+     */
     public String readMessage(String message) throws Throwable{
         String[]arrayMessage=message.split(" ");
         String response="";
