@@ -59,6 +59,20 @@ public class ProcessStatusMachine extends Thread{
                     ClientProxy clientToBeDeleted=new ClientProxy(ipServer,2018);
                     namingProxy.unbind("", clientToBeDeleted);
                     
+                    //////////////////////////////////////////////////////////////////////////////////
+                    GenerateRandom random = new GenerateRandom(i, machines.size());
+                    // get random number different of i to unpause
+                    int n = random.generate();
+                    
+                    System.out.println("Unpause machine: "+machines.get(n).name);
+                    openstack.unPauseInstance(machines.get(n).id);// unpause another machine
+                    ClientProxy clientToBeUnpaused=new ClientProxy(machines.get(n).getIP(),2018);
+                    NamingProxy namingProxyReactivate = new NamingProxy(GetInfo.getInstance().serverNameIP,2017);// servidor de nomes
+                    namingProxyReactivate.reactivate("",clientToBeUnpaused);
+                    
+                    //////////////////////////////////////////////////////////////////////////////////
+                    
+                    /*
                     if(i == (machines.size()-1)){
                         System.out.println("Unpause machine: "+machines.get(i-1).name);
                         openstack.unPauseInstance(machines.get(i-1).id);// unpause another machine
@@ -75,7 +89,7 @@ public class ProcessStatusMachine extends Thread{
            
                         namingProxyReactivate.reactivate("",clientToBeUnpaused);
                     
-                    }
+                    }*/
                        
                     break;
                 }
