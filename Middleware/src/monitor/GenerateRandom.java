@@ -8,7 +8,7 @@ package monitor;
 import java.util.Random;
 
 /**
- *
+ * Class that return a random number.
  * @author guto
  */
 public class GenerateRandom {
@@ -18,7 +18,12 @@ public class GenerateRandom {
     int not;
     int limit;
 
-
+    /**
+     * Return a random number. Recieves two parameters: 'limit' is a limit range (from 0 to 'limit').
+     * Return a number different of 'not'.
+     * @param not 
+     * @param limit 
+     */
     public GenerateRandom(int not, int limit) {
         this.not = not;
         this.limit = limit;
