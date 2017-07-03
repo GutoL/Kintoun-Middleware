@@ -39,8 +39,6 @@ public class ProcessStatusMachine extends Thread{
        
     public void run(){
         
-        //System.out.println("CPU "+statusMachine.CPUConsumption+" Limit: "+limitResourcesMachine.getLimitCPU());
-        
         if(statusMachine.CPUConsumption >= this.limitResourcesMachine.getLimitCPU()){  
         
            NamingProxy namingProxy = new NamingProxy(GetInfo.getInstance().serverNameIP,2017);// servidor de nomes

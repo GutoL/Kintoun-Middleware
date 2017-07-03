@@ -82,9 +82,12 @@ public class Base64OperationsProxy extends ClientProxy implements IBase64Operati
                 
                 
                 Base64OperationsProxy b64proxy = (Base64OperationsProxy)namingProxy.lookup("Base64");
-                invocation.setIpAddress(b64proxy.getHost());
-                invocation.setPortNumber(b64proxy.getPort());
+                if (b64proxy!=null){
+                    invocation.setIpAddress(b64proxy.getHost());
+                    invocation.setPortNumber(b64proxy.getPort());
             
+                }
+                
             }
             
             

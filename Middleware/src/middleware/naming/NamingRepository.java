@@ -114,9 +114,7 @@ public class NamingRepository {
                     if (namingRecords.get(i).getClientProxy().getHost().equals(clientProxy.getHost())){
                         index=i;
                         namingRecords.get(i).getClientProxy().setPaused(bool);
-                        System.out.println("middleware.naming.NamingRepository.SetPausedProxy() "+namingRecords.get(i).getClientProxy().getHost()+" " +namingRecords.get(i).getClientProxy().isPaused());
                         changed=true;
-                        System.out.println("middleware.naming.NamingRepository.SetPausedProxy() changed");
                         
                         break;
                     }
