@@ -24,17 +24,17 @@ public class URL {
     }
     
     public String getServers(){
-        return "http://"+serverIP+":8774/v2.1/servers";
+        return "http://"+serverIP+"/compute/v2.1/servers";
 
     }
     
     public String getServers(String id){
-        return "http://"+serverIP+":8774/v2.1/servers/"+id;
+        return "http://"+serverIP+"/compute/v2.1/servers/"+id;
 
     }
     
     public String basicURL(){
-        return "http://"+serverIP+":8774/v2.1/";
+        return "http://"+serverIP+"/compute/v2.1/";
     }
     
 }
