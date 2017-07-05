@@ -50,12 +50,11 @@ public class ProcessStatusMachine extends Thread{
                     
                     //execScriptWithReturn("src/monitor/Shell/pause.sh", machines.get(i).name);// pause machine with return
                     
+                    ClientProxy clientToBeDeleted=new ClientProxy(ipServer,2018);
+                    namingProxy.unbind("", clientToBeDeleted);
                     
                     System.out.println("Pause machine: "+machines.get(i).name);
                     openstack.pauseInstance(machines.get(i).id);// pause machine
-                    
-                    ClientProxy clientToBeDeleted=new ClientProxy(ipServer,2018);
-                    namingProxy.unbind("", clientToBeDeleted);
                     
                     //////////////////////////////////////////////////////////////////////////////////
                     GenerateRandom random = new GenerateRandom(i, machines.size());
